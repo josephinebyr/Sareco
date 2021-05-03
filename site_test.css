@@ -1,0 +1,346 @@
+/*.mediaViewInfo {
+    --web-view-name: Fenetre Sarecoscope;
+    --web-view-id: Fenetre_Sarecoscope;
+    --web-scale-on-resize: true;
+    --web-enable-deep-linking: true;
+}
+:root {
+    --web-view-ids: Fenetre_Sarecoscope;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    border: none;
+}*/
+
+body{
+    position : absolute;
+    width : 100%;
+    background-color:rgba(254,215,215,1) ;
+    overflow: auto;
+}
+
+/*@keyframes fadein {
+
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+
+}
+@keyframes fadein {
+
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+
+}
+@keyframes fadein {
+
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+
+}
+@keyframes fadein {
+
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+
+}
+@keyframes fadein {
+
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+
+}
+@keyframes fadein {
+
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+
+}
+@keyframes fadein {
+
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+
+}
+@keyframes fadein {
+
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+
+}*/
+
+/**********
+TITRE DU SITE
+**********/
+#Sarecoscope {
+    left: 730px;
+    top: 45px;
+    position: absolute;
+    overflow: visible;
+    width: 461px;
+    white-space: nowrap;
+    text-align: center;
+    font-family: Constantia;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 80px;
+    color: rgb(187, 3, 3);
+}
+
+/**********
+BARRE DE RECHERCHE
+**********/
+.barre_de_recherche{
+    position: absolute;
+    overflow: visible;
+    width: 391px;
+    height: 69px;
+    left: 1480px;
+    top: 125px;
+}
+.barre_de_recherche,label{
+    display: block;
+    font-family: DejaVu Sans;
+    font-style: normal;
+    font-weight: normal;
+}
+#barre_recherche{
+    width: 191px;
+    height: 39px;
+}
+#barre_recherche_B{
+    width: 96px;
+    height: 30px;
+}
+
+#image-loupe {
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    left: 1442px;
+    top: 147px;
+    overflow: visible;
+}
+
+/**********
+LOGO DU SITE
+**********/
+#Logo_du_site {
+    fill: rgba(255,255,255,1);
+    stroke: rgba(112,112,112,1);
+    stroke-width: 1px;
+    stroke-linejoin: miter;
+    stroke-linecap: butt;
+    stroke-miterlimit: 4;
+    shape-rendering: auto;
+}
+.Logo_du_site {
+    position: absolute;
+    overflow: visible;
+    width: 261px;
+    height: 204px;
+    left: 121px;
+    top: 18px;
+}
+
+#Espace_de_travail {
+    left: 1536px;
+    top: 19px;
+    position: absolute;
+    overflow: visible;
+    width: 259px;
+    white-space: nowrap;
+    text-align: center;
+    font-family: Segoe Print;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 30px;
+    color: rgba(25,25,25,1);
+}
+
+/**********
+CARTE INTERACTIVE LYON AU CENTRE DU SITE
+**********/
+/*#carte_interactive_france {
+    fill: rgba(96,168,118,1);
+}*/
+
+.carte_interactive_france {
+    position: absolute;
+    overflow: visible;
+    width: 698px;
+    height: 782px;
+    left: 660px;
+    top: 265px;
+    fill: rgba(96,168,118,1);
+}
+
+#Lyon_et_ses_arrondissements_ma {
+    position: absolute;
+    width: 673px;
+    height: 760px;
+    left: 673px;
+    top: 276px;
+    overflow: visible;
+}
+
+/**********
+TITRE CHOIX DES DONNEES
+**********/
+#donnees{
+    left: 148px;
+    top: 239px;
+    position: absolute;
+    width: 251px;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 25px;
+    color: rgba(255,1,1,1); 
+}
+
+/**********
+FORMULAIRE DONNEES
+**********/
+.choix_echelle{
+    position: absolute;
+    overflow: visible;
+    width: 391px;
+    height: 69px;
+    left: 35px;
+    top: 290px; 
+
+    /*left: 35px;
+    top: 400px;
+    position: absolute;
+    overflow: visible;
+    width: 83px;*/
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    /*font-weight: bold;*/
+    font-size: 20px;
+    /*color: rgba(255,1,1,1);*/
+}
+
+#echelle {
+    position: absolute;
+    width: 183px;
+    height: 37px;
+    left: 245px;
+    top: 308px;
+    overflow: visible;
+}
+
+#Liste_communes_iris{
+    width: 191px;
+    height: 39px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.choix_annee{
+    position: absolute;
+    overflow: visible;
+    width: 391px;
+    height: 69px;
+    left: 35px;
+    top: 350px; 
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-size: 20px;
+}
+
+#annees {
+    position: absolute;
+    width: 183px;
+    height: 37px;
+    left: 245px;
+    top: 368px;
+    overflow: visible;
+}
+
+#Liste_Annee{
+    width: 191px;
+    height: 39px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.choix_indicateur{
+    position: absolute;
+    overflow: visible;
+    width: 391px;
+    height: 69px;
+    left: 35px;
+    top: 410px; 
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-size: 20px;
+}
+
+#indicateur {
+    position: absolute;
+    width: 183px;
+    height: 37px;
+    left: 245px;
+    top: 428px;
+    overflow: visible;
+}
+
+#Liste_indicateurs{
+    width: 191px;
+    height: 39px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+
+
+
+#logo1 {
+    position: absolute;
+    width: 213px;
+    height: 177.5px;
+    left: 145px;
+    top: 31px;
+    overflow: visible;
+}
