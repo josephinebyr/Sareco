@@ -1,12 +1,27 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="utf-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fenetre Sarecoscope</title>
-<link rel="stylesheet" href="site_test.css"/>
-</head>
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Fenetre Sarecoscope</title>
+        
+        <!-- Code leaflet -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+
+        <!-- Code Anychart pour les graphiques -->
+        <script src="https://cdn.anychart.com/releases/8.8.0/js/anychart-base.min.js"></script>
+        <script src="https://cdn.anychart.com/releases/8.8.0/js/anychart-data-adapter.min.js"></script>
+
+        <!-- Code pour l'xportation au format .png -->
+        <link rel="stylesheet" href="./Export_img/Leaflet.BigImage.min.css">
+        <script src="./Export_img/Leaflet.BigImage.min.js"></script>
+
+        <!-- Fichiers de style .css -->
+        <link rel="stylesheet" href="site_test.css"/>
+    </head>
 
 <body>
 <div id="Fenetre_Sarecoscope">
@@ -33,10 +48,11 @@
     </div>
     
     <!--Prendre html Josephine et JS associé-->
-	<svg class="carte_interactive_france">
+	<!--<svg class="carte_interactive_france">-->
 		<rect id="carte_interactive_france" rx="0" ry="0" x="0" y="0" width="698" height="782">
 		</rect>
     </svg>
+    <div id="carte_interactive_france"></div>
     
     <div id="donnees">
         <p>Données</p>
@@ -68,13 +84,16 @@
     <div class="choix_echelle">
         <p>Choix de l'échelle :</p>
     </div>
-    <div id="echelle">
+    <!--<div id="echelle">
         <form action="">
             <select name="Liste communes ou iris" id="Liste_communes_iris">
                 <option value="">Communes</option>
                 <option value="">Iris</option>
             </select>
         </form>
+    </div>-->
+    <div id="echelle">
+        <button class="onoff" onclick="onoff(this)"><div>Communes</div></button>
     </div>
 
     <div class="choix_indicateur">
@@ -94,6 +113,9 @@
 	<img id="Lyon_et_ses_arrondissements_ma" src="Lyon_et_ses_arrondissements_ma.png" srcset="Lyon_et_ses_arrondissements_ma.png 1x, Lyon_et_ses_arrondissements_ma@2x.png 2x">
 		
 </div>
-<script src="site_sareco.js"></script>
+<!--<script src="site_sareco.js"></script>-->
+
+<script type="text/javascript" src="france.js"></script>
+<script type="text/javascript" src="code.js"></script>
 </body>
 </html>
