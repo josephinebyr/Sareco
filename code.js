@@ -1,14 +1,14 @@
-anychart.onDocumentReady(function (data) {
+/*anychart.onDocumentReady(function (data) {
     anychart.data.loadJsonFile("connect.php", function () {
       //var chart = anychart.fromJson(data)
-        /*// create a data set
+        // create a data set
       var dataSet = anychart.data.set(data);
       // map the data
       var mapping = dataSet.mapAs({x: "insee_com", value: "taux_motorisation"});
       // create a chart
       var chart = anychart.column();
       // create a series and set the data
-      var series = chart.column(mapping);*/
+      var series = chart.column(mapping);
 
       // create a chart and set loaded data
       chart = anychart.bar(data);
@@ -19,17 +19,9 @@ anychart.onDocumentReady(function (data) {
 
 fetch('connect.php')
 .then(result => result.json())
-.then(result => console.log(result));
+.then(result => console.log(result));*/
 
-var map = L.map('carte_interactive_france').setView([46, 2], 6);
-L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-  maxZoom: 18,
-  attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
-      'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-  id: 'mapbox/light-v9',
-  tileSize: 512,
-  zoomOffset: -1
-}).addTo(map);
+
 
 //Connection to postgres
 /*const pg = require(‘pg’);
@@ -42,7 +34,18 @@ query.on("row", function(row,result){
 });
 pgClient.end();*/
 
+var map = L.map('carte_interactive_france').setView([46, 2], 6);
+L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+  maxZoom: 18,
+  attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
+      'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+  id: 'mapbox/light-v9',
+  tileSize: 512,
+  zoomOffset: -1
+}).addTo(map);
 
+var layerNomCommunes = L.layerGroup();
+var layerUnitesGeog = L.layerGroup();
 
 // control that shows state info on hover
 var info = L.control();
@@ -100,9 +103,6 @@ function highlightFeature(e) {
   info.update(layer.feature.properties);
 }
 
-var geojson_communes;
-var geojson_iris;
-
 function resetHighlight(e) {
   unite_geographique.resetStyle(e.target);
   info.update();
@@ -116,15 +116,29 @@ function onEachFeature(feature, layer) {
   var label = L.marker(layer.getBounds().getCenter(), {
         icon: L.divIcon({
           className: 'label',
-          //html: (this.feature==geojson_communes) ? feature.properties.libgeo : feature.properties.NOM_COM,
+          html: (this.feature==geojson_communes) ? feature.properties.libgeo : feature.properties.NOM_COM,
         })
-}).addTo(map);
+}).addTo(layerNomCommunes);
   layer.on({
       //mouseover: highlightFeature,
       //mouseout: resetHighlight,
       click: highlightFeature
   });
 }
+
+// Affichage des noms de villes qu'à partir d'un certain zoom
+map.on("zoomend", function(e){
+  console.log(map.getZoom());
+  if(map.getZoom() < 11) {
+      map.removeLayer(layerNomCommunes);
+  }else  {
+    layerNomCommunes.addTo(map);
+  }
+});
+
+// Importation des fichiers geojson pour afficher les limites de communes et IRIS
+var geojson_communes;
+var geojson_iris;
 
 geojson_communes = L.geoJson(COMMUNES, {
   style: style,
@@ -142,24 +156,27 @@ geojson_iris = L.geoJson(IRIS, {
   onEachFeature: onEachFeature
 });
 
+ // Gestion de l'échelle affichée : IRIS ou sommunes
 var unite_geographique = geojson_communes;
 
 function onoff(element) {
   if (unite_geographique == geojson_communes) {
       unite_geographique = geojson_iris;
       blabel = "Iris";
-      //map.clear();
-      unite_geographique.addTo(map);
   } else {
       unite_geographique = geojson_communes;
       blabel = "Communes";
-      //map.clear();
-      unite_geographique.addTo(map);
   }
   var child=element.firstChild;
   child.innerHTML=blabel;
+  map.removeLayer(layerUnitesGeog);
+  layerUnitesGeog.clearLayers();
+  unite_geographique.addTo(layerUnitesGeog);
+  layerUnitesGeog.addTo(map);
 }
-unite_geographique.addTo(map);
+unite_geographique.addTo(layerUnitesGeog);
+layerUnitesGeog.addTo(map);
+
 
 map.attributionControl.addAttribution('Données &copy; <a href="http://INSEE.fr/">INSEE</a>');
 
