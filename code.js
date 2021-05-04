@@ -43,7 +43,7 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
   tileSize: 512,
   zoomOffset: -1
 }).addTo(map);
-map.doubleClickZoom.disable(); 
+map.doubleClickZoom.disable();
 
 var layerNomCommunes = L.layerGroup();
 var layerUnitesGeog = L.layerGroup();
@@ -247,7 +247,7 @@ shapefile.open("COMMUNE/COMMUNE.shp")
       //result.value.addTo(map)
       return source.read().then(log);
       }))
-  
+
   .catch(error => console.error(error.stack));
 console.log('test SHP:',shp_test)*/
 //console.log(table)
