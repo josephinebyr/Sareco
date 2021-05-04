@@ -35,7 +35,7 @@
         <button id="barre_recherche_B">Rechercher</button>
     </div>
 
-	<img id="image-loupe" src="image-loupe.png" srcset="image-loupe.png 1x, image-loupe@2x.png 2x">
+	<!--<img id="image-loupe" src="image-loupe.png" srcset="image-loupe.png 1x, image-loupe@2x.png 2x">-->
     
     <svg class="Logo_du_site">
 		<rect id="Logo_du_site" rx="0" ry="0" x="0" y="0" width="261" height="204">
@@ -48,69 +48,71 @@
     </div>
     
     <!--Prendre html Josephine et JS associé-->
-	<!--<svg class="carte_interactive_france">-->
+	<!--<svg class="carte_interactive_france">
 		<rect id="carte_interactive_france" rx="0" ry="0" x="0" y="0" width="698" height="782">
 		</rect>
-    </svg>
+    </svg>-->
     <div id="carte_interactive_france"></div>
     
     <div id="donnees">
         <p>Données</p>
     </div>
 
-    <div class="choix_annee">
-        <p>Choix de(s) l'année(s) :</p>
-    </div>
-    <div id="annees">
-        <form action="">
-            <select name="Liste_Annee" id="Liste_Annee">
-                
-                <option>2006</option>
-                <option>2007</option>
-                <option>2008</option>
-                <option>2009</option>
-                <option>2010</option>
-                <option>2011</option>
-                <option>2012</option>
-                <option>2013</option>
-                <option>2014</option>
-                <option>2015</option>
-                <option>2016</option>
-                <option>2017</option>
-            </select>
-        </form>
-    </div>
+    <form method="GET" name="form" onsubmit = "return ValidationForm()">
+        <div class="choix_annee">
+            <p>Choix de(s) l'année(s) :</p>
+        </div>
+        <div id="annees">
+            <form name="annees" action="">
+                <select name="Liste_Annee" id="Liste_Annee" onchange="ValidationForm()" multiple>
+                    <option>2006</option>
+                    <option>2007</option>
+                    <option>2008</option>
+                    <option>2009</option>
+                    <option>2010</option>
+                    <option>2011</option>
+                    <option>2012</option>
+                    <option>2013</option>
+                    <option>2014</option>
+                    <option>2015</option>
+                    <option>2016</option>
+                    <option>2017</option>
+                </select>
+            </form>
+        </div>
 
-    <div class="choix_echelle">
-        <p>Choix de l'échelle :</p>
-    </div>
-    <!--<div id="echelle">
-        <form action="">
-            <select name="Liste communes ou iris" id="Liste_communes_iris">
-                <option value="">Communes</option>
-                <option value="">Iris</option>
-            </select>
-        </form>
-    </div>-->
-    <div id="echelle">
-        <button class="onoff" onclick="onoff(this)"><div>Communes</div></button>
-    </div>
+        <div class="choix_echelle">
+            <p>Choix de l'échelle :</p>
+        </div>
+        <!--<div id="echelle">
+            <form action="">
+                <select name="Liste communes ou iris" id="Liste_communes_iris">
+                    <option value="">Communes</option>
+                    <option value="">Iris</option>
+                </select>
+            </form>
+        </div>-->
+        <div id="echelle">
+            <button class="onoff" onclick="onoff(this)"><div>Communes</div></button>
+        </div>
 
-    <div class="choix_indicateur">
-        <p>Choix de l'indicateur :</p>
-    </div>
-    <div id="indicateur">
-        <form action="">
-            <select name="Liste des indicateurs" id="Liste_indicateurs">
-                <option value="">...</option>
-            </select>
-        </form>
-    </div>
+        <div class="choix_indicateur">
+            <p>Choix de l'indicateur :</p>
+        </div>
+        <div id="indicateur">
+            <form action="">
+                <select name="Liste des indicateurs" id="Liste_indicateurs">
+                    <option value="">...</option>
+                </select>
+            </form>
+        </div>
+        <button type="submit" id="btnValidationForm">Valider</button>
+    </form>
 	
     
-	<img id="logo1" src="logo1.png" srcset="logo1.png 1x, logo1@2x.png 2x">
+	<!--<img id="logo1" src="logo1.png" srcset="logo1.png 1x, logo1@2x.png 2x">-->
 		
-	<img id="Lyon_et_ses_arrondissements_ma" src="Lyon_et_ses_arrondissements_ma.png" srcset="Lyon_et_ses_arrondissements_ma.png 1x, Lyon_et_ses_arrondissements_ma@2x.png 2x">
+	<!--<img id="Lyon_et_ses_arrondissements_ma" src="Lyon_et_ses_arrondissements_ma.png" srcset="Lyon_et_ses_arrondissements_ma.png 1x, Lyon_et_ses_arrondissements_ma@2x.png 2x">-->
 		
 </div>
 <!--<script src="site_sareco.js"></script>-->

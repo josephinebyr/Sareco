@@ -34,7 +34,7 @@ query.on("row", function(row,result){
 });
 pgClient.end();*/
 
-var map = L.map('carte_interactive_france').setView([46, 2], 6);
+var map = L.map('carte_interactive_france').setView([46, 5], 10);
 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
   maxZoom: 18,
   attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
@@ -43,11 +43,12 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
   tileSize: 512,
   zoomOffset: -1
 }).addTo(map);
+map.doubleClickZoom.disable(); 
 
 var layerNomCommunes = L.layerGroup();
 var layerUnitesGeog = L.layerGroup();
 
-// control that shows state info on hover
+// Panneau d'affichage des informations en haut à droite de la carte
 var info = L.control();
 
 info.onAdd = function (map) {
@@ -65,7 +66,7 @@ info.update = function (props) {
 info.addTo(map);
 
 
-// get color depending on value of indicator
+// Couleur dépendant de la valeur de l'indicateur
 function getColor(indicateur) {
   return indicateur > 10 ? '#E62138' :
           indicateur > 5  ? '#E94153' :
@@ -79,13 +80,14 @@ function style(feature) {
   return {
       weight: 1,
       opacity: 1,
-      color: 'white',
+      color: 'grey',
       dashArray: '3',
       fillOpacity: 0.8,
       fillColor: (this.feature==geojson_iris) ? getColor(feature.properties.INSEE_COM) : getColor(feature.properties.indicateur)
   };
 }
 
+// Stylisation des géométries
 function highlightFeature(e) {
   var layer = e.target;
 
@@ -112,6 +114,13 @@ function zoomToFeature(e) {
   map.fitBounds(e.target.getBounds());
 }
 
+//Sélection d'une commune
+function select(e) {
+  highlightFeature(e);
+  console.log(e.target.feature);
+}
+
+// Actions sur les géométries
 function onEachFeature(feature, layer) {
   var label = L.marker(layer.getBounds().getCenter(), {
         icon: L.divIcon({
@@ -122,13 +131,14 @@ function onEachFeature(feature, layer) {
   layer.on({
       //mouseover: highlightFeature,
       //mouseout: resetHighlight,
-      click: highlightFeature
+      click: select,
+      dblclick: resetHighlight
+
   });
 }
 
 // Affichage des noms de villes qu'à partir d'un certain zoom
 map.on("zoomend", function(e){
-  console.log(map.getZoom());
   if(map.getZoom() < 11) {
       map.removeLayer(layerNomCommunes);
   }else  {
@@ -156,7 +166,7 @@ geojson_iris = L.geoJson(IRIS, {
   onEachFeature: onEachFeature
 });
 
- // Gestion de l'échelle affichée : IRIS ou sommunes
+ // Gestion de l'échelle affichée : IRIS ou communes
 var unite_geographique = geojson_communes;
 
 function onoff(element) {
@@ -177,9 +187,25 @@ function onoff(element) {
 unite_geographique.addTo(layerUnitesGeog);
 layerUnitesGeog.addTo(map);
 
+// Sélection de l'année
+var Liste_Annee = document.getElementById("Liste_Annee");
+var annee = Liste_Annee.options[Liste_Annee.selectedIndex];
 
-map.attributionControl.addAttribution('Données &copy; <a href="http://INSEE.fr/">INSEE</a>');
+function ValidationForm() {
+  var annees = []
+  annee = document.forms.form.Liste_Annee.options;
+  for (i=0; i<document.forms.form.Liste_Annee.options.length; i++) {
+    if (document.forms.form.Liste_Annee.options[i].selected ) {
+      annees.push(document.forms.form.Liste_Annee.options[i].text);
+      console.log(annees);
+    }
+  }
+  return annees
+}
+// Affichage de la source des données (INSEE)
+map.attributionControl.addAttribution('Données <a href="http://INSEE.fr/">INSEE</a>');
 
+//Légende en bas à droite
 var legend = L.control({position: 'bottomright'});
 
 legend.onAdd = function (map) {
@@ -204,6 +230,7 @@ legend.onAdd = function (map) {
 
 legend.addTo(map);
 
+// Panneau d'exportation au format .png
 L.control.bigImage().addTo(map);
 
 

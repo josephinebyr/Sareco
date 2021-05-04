@@ -333,7 +333,10 @@ FORMULAIRE DONNEES
     font-size: 15px;
 }
 
-
+#btnValidationForm{
+    top: 200px;
+    left: 500px;
+}
 
 
 #logo1 {
