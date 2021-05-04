@@ -135,6 +135,7 @@ function onEachFeature(feature, layer) {
       dblclick: resetHighlight
 
   });
+  nomsCommunesIris.push((this.feature==geojson_communes) ? feature.properties.libgeo : feature.properties.NOM_COM)
 }
 
 // Affichage des noms de villes qu'à partir d'un certain zoom
@@ -149,6 +150,7 @@ map.on("zoomend", function(e){
 // Importation des fichiers geojson pour afficher les limites de communes et IRIS
 var geojson_communes;
 var geojson_iris;
+var nomsCommunesIris = [];
 
 geojson_communes = L.geoJson(COMMUNES, {
   style: style,
@@ -202,6 +204,61 @@ function ValidationForm() {
   }
   return annees
 }
+
+//Barre de recherche
+window.onload = function(){
+	
+	var form = document.getElementById("form_recherche");
+	var input = form.search;
+	
+	var list = document.createElement("ul");
+	list.className = "suggestions";
+	list.style.display = "none";
+
+	form.appendChild(list);
+
+	input.onkeyup = function(){
+		var txt = this.value;
+		if(!txt){
+			list.style.display = "none";
+		    return;
+		}
+		
+		var suggestions = 0;
+		var frag = document.createDocumentFragment();
+		
+		for(var i = 0, c = nomsCommunesIris.length; i < c; i++){
+			if(new RegExp("^"+txt,"i").test(nomsCommunesIris[i])){
+				var word = document.createElement("li");
+				frag.appendChild(word);
+				word.innerHTML = nomsCommunesIris[i].replace(new RegExp("^("+txt+")","i"),"<strong>$1</strong>");
+				word.mot = nomsCommunesIris[i];
+				word.onmousedown = function(){					
+					input.focus();
+					input.value = this.mot;
+					list.style.display = "none";
+					return false;
+				};				
+				suggestions++;
+			}
+		}
+
+		if(suggestions){
+			list.innerHTML = "";
+			list.appendChild(frag);
+			list.style.display = "block";
+		}
+		else {
+			list.style.display = "none";			
+		}
+	};
+
+	input.onblur = function(){
+		list.style.display = "none";	
+	};
+};
+
+
 // Affichage de la source des données (INSEE)
 map.attributionControl.addAttribution('Données <a href="http://INSEE.fr/">INSEE</a>');
 
