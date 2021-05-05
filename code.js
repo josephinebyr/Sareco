@@ -259,13 +259,7 @@ function formRecherche(){
 };
 
 function rechercher() {
-  //btn = document.getElementById("barre_recherche_B");
-  //btn.onclick( function () {
-    //console.log(document.getElementById("form_recherche").search);
-    console.log(document.getElementById("form_recherche").search);
-  //});
-  
-  
+    console.log(document.getElementById("form_recherche").search.value);
 }
 
 
