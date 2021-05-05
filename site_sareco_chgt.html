@@ -28,6 +28,7 @@
 	<header>
         <!--<img id="logo1" src="logo1.png" srcset="logo1.png 1x, logo1@2x.png 2x">-->
         <h1>Sarecoscope</h1>
+        <p>Espace de travail</p>
     </header>
     
     <section>
@@ -42,7 +43,8 @@
 		<p>Taux de motorisation des ménages</p>
     </div>
     
-	<div id="Niveau__">
+    <div id=inline>
+	<div id="Niveau">
 		<p>Niveau : </p>
     </div>
     
@@ -72,7 +74,7 @@
                 </select>
             </form>
         </div>
-    
+    </div>
 	<!--<div onclick="application.showOverlay(event,'Carte_volution_par_anne',1430,291)" id="Evolution_du_taux_de_motorisation">
 		<span>- Evolution du taux de motorisation par année de 2006 à 2017</span>
     </div>-->
@@ -81,7 +83,7 @@
 		<p>Taux de venue au travail des actifs par mode<br/>- Depuis la commune de résidence :</p>
     </div>
     
-	<div onclick="application.showOverlay(event,'Liste_droulante_mode_transport',121,566)" id="Composant_Mode_transport_1" class="Composant_Mode_transport_1">
+	<div onclick="application.showOverlay(event,'Liste_deroulante_mode_transport',121,566)" id="Composant_Mode_transport_1" class="Composant_Mode_transport_1">
 		<!--<svg class="Mdtransport_1">
 			<rect id="Mdtransport_1" rx="0" ry="0" x="0" y="0" width="219" height="38">
 			</rect>
@@ -103,7 +105,7 @@
         </form>
     </div>
     
-	<div id="-_Depuis_la_commune_de_travail">
+	<div id="Depuis_la_commune_de_travail">
 		<p>- Depuis la commune de travail :</p>
     </div>
     
@@ -131,11 +133,11 @@
 		<p>- Evolution des taux de venue au travail des actifs</p>
     </div>
 
-    <div onclick="application.showOverlay(event,'Carte_volution_taux_de_venuetransports',1432,703)" id="-_Pour_les_transports_en_commun">
+    <div onclick="application.showOverlay(event,'Carte_evolution_taux_de_venuetransports',1432,703)" id="-_Pour_les_transports_en_commun">
 		<span>-> Pour les transports en commun</span>
     </div>
     
-	<div onclick="application.showOverlay(event,'Carte_volution_taux_de_venuevoitures',1435,721)" id="-_Pour_la_voiture">
+	<div onclick="application.showOverlay(event,'Carte_evolution_taux_de_venuevoitures',1435,721)" id="-_Pour_la_voiture">
 		<span>-> Pour la voiture</span>
     </div>
     
@@ -147,7 +149,7 @@
 		<p>Taux d'équipements en garage privé des ménages (communes <br/>ou Iris)</p>
     </div>
     
-	<div id="Niveau___bd">
+	<div id="Niveau">
 		<span>Niveau : </span>
     </div>
     <div id="Composant_Communes_2" class="Composant_Communes_2">
@@ -206,9 +208,6 @@
     </article>
 
     <article>
-        <div id="Espace_de_travail">
-            <span>Espace de travail</span>
-        </div>
 
         <div class="barre_de_recherche">
             <form id="form_recherche" action="#" method="post">

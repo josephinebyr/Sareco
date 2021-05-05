@@ -21,6 +21,10 @@ header {
     background: url(Images/logo.png) left  no-repeat ;
     margin: 10px;
 }
+header p{
+    text-align: right;
+    margin: 20px;
+}
 
 /**********
 BARRE DE RECHERCHE
@@ -115,7 +119,7 @@ article:nth-of-type(1) div#choix_annee{
 }
 
 
-#donnees{
+#Choix_des_indicateurs{
     font-family: Segoe UI;
     font-style: normal;
     font-weight: bold;
@@ -125,6 +129,11 @@ article:nth-of-type(1) div#choix_annee{
 
 #carte_interactive_france{
     height: 500px;
+}
+
+#inline{
+    display: flex;
+    /*justify-content: space-around;*/
 }
 
 #button_rafraichir {
