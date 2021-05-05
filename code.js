@@ -46,7 +46,7 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 map.doubleClickZoom.disable();
 
 var layerNomCommunes = L.layerGroup();
-var layerUnitesGeog = L.layerGroup();
+var layerUnitesGeog = L.featureGroup();
 
 // Panneau d'affichage des informations en haut à droite de la carte
 var info = L.control();
@@ -117,7 +117,6 @@ function zoomToFeature(e) {
 //Sélection d'une commune
 function select(e) {
   highlightFeature(e);
-  console.log(e.target.feature);
 }
 
 // Actions sur les géométries
@@ -157,7 +156,7 @@ geojson_communes = L.geoJson(COMMUNES, {
   onEachFeature: onEachFeature,
 
   pointToLayer: function(feature,latlng){
-      label = String(feature.properties.libgeo) // Must convert to string, .bindTooltip can't use straight 'feature.properties.attribute'
+      label = String(feature.properties.libgeo) 
       return new L.CircleMarker(latlng, {
             radius: 1,
       }).bindTooltip(label, {permanent: true, opacity: 0.7}).openTooltip();
@@ -259,7 +258,12 @@ function formRecherche(){
 };
 
 function rechercher() {
-    console.log(document.getElementById("form_recherche").search.value);
+  var nomGeom = document.getElementById("form_recherche").search.value;
+  unite_geographique.eachLayer(function (layer) {   
+    if (layer.feature.properties.libgeo == nomGeom) {
+      map.fitBounds(layer.getBounds());
+    }
+  });
 }
 
 
