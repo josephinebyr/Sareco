@@ -194,6 +194,13 @@ var Liste_Annee = document.getElementById("Liste_Annee");
 var annee = Liste_Annee.options[Liste_Annee.selectedIndex];
 
 function ValidationForm() {
+  ValidationAnnee();
+  ValidationIndicateur();
+  ValidationCommune();
+  Analyse();
+}
+
+function ValidationAnnee() {
   var annees = []
   annee = document.forms.form.Liste_Annee.options;
   for (i=0; i<document.forms.form.Liste_Annee.options.length; i++) {
@@ -205,6 +212,7 @@ function ValidationForm() {
   return annees
 }
 
+<<<<<<< Updated upstream
 //Barre de recherche
 function formRecherche(){
 	
@@ -263,6 +271,24 @@ function rechercher() {
 }
 
 
+=======
+function EnvoiePHP() {
+  $.ajax({
+	   url: 'database.php',
+	   type: 'POST',
+	   data: 'commune='+tabCommune+'&annee='+tabAnnee+'&indicateur='+tabIndicateur,
+	   success: function(data){
+
+	}
+});
+}
+
+function Analyse(Annee, Commune, Indicateur){
+  /*var tabCommune...
+  */
+  EnvoiePHP();
+}
+>>>>>>> Stashed changes
 // Affichage de la source des données (INSEE)
 map.attributionControl.addAttribution('Données <a href="http://INSEE.fr/">INSEE</a>');
 
