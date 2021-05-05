@@ -24,41 +24,41 @@
     </head>
 
 <body>
-<div id="Fenetre_Sarecoscope">
-	<div id="Sarecoscope">
-		<span>Sarecoscope</span>
-    </div>
 
-    <div class="barre_de_recherche">
-        <form id="form_recherche" action="#" method="post">
-            <label for="barre_recherche">Barre de recherche</label>
-            <input type="text" class="search" name="search" onkeyup="formRecherche()" autocomplete="off"/>
-            <button id="barre_recherche_B" onclick="rechercher()">Rechercher</button>
-        </form>
-    </div>
+	<header>
+        <!--<img id="logo1" src="logo1.png" srcset="logo1.png 1x, logo1@2x.png 2x">-->
+        <h1>Sarecoscope</h1>
+    </header>
+
+    <section>
+    
 
 	<!--<img id="image-loupe" src="image-loupe.png" srcset="image-loupe.png 1x, image-loupe@2x.png 2x">-->
 
-    <svg class="Logo_du_site">
-		<!--<rect id="Logo_du_site" rx="0" ry="0" x="0" y="0" width="261" height="204">
-		</rect>-->
+    <!--<svg class="Logo_du_site">
+		
         <img id="Logo_du_site" src="Images/logo.png">
-    </svg>
-
-
-	<div id="Espace_de_travail">
-		<span>Espace de travail</span>
-    </div>
-
-    <!--Prendre html Josephine et JS associé-->
-	<!--<svg class="carte_interactive_france">
-		<rect id="carte_interactive_france" rx="0" ry="0" x="0" y="0" width="698" height="782">
-		</rect>
     </svg>-->
-    <div id="carte_interactive_france"></div>
+    
 
+    <article>
     <div id="donnees">
         <p>Données</p>
+    </div>
+
+    <div class="choix_echelle">
+        <p>Choix de l'échelle :</p>
+    </div>
+    <!--<div id="echelle">
+        <form action="">
+            <select name="Liste communes ou iris" id="Liste_communes_iris">
+                <option value="">Communes</option>
+                <option value="">Iris</option>
+            </select>
+        </form>
+    </div>-->
+    <div id="echelle">
+        <button class="onoff" onclick="onoff(this)"><div>Communes</div></button>
     </div>
 
     <form method="GET" name="form" onsubmit = "return ValidationForm()">
@@ -84,20 +84,7 @@
             </form>
         </div>
 
-        <div class="choix_echelle">
-            <p>Choix de l'échelle :</p>
-        </div>
-        <!--<div id="echelle">
-            <form action="">
-                <select name="Liste communes ou iris" id="Liste_communes_iris">
-                    <option value="">Communes</option>
-                    <option value="">Iris</option>
-                </select>
-            </form>
-        </div>-->
-        <div id="echelle">
-            <button class="onoff" onclick="onoff(this)"><div>Communes</div></button>
-        </div>
+        
 
         <div class="choix_indicateur">
             <p>Choix de l'indicateur :</p>
@@ -112,12 +99,45 @@
         <button type="submit" id="btnValidationForm" onclick="ValidationForm()">Valider</button>
     </form>
 
+    <div id=inner_html>
+        <p></p>
+    </div>
 
+    <!--<div>
+        <button id="button_rafraichir" type="button"><p>Rafraichir</p></button>
+    </div>-->
+
+    </article>
+
+    <article>
+        <!--Prendre html Josephine et JS associé-->
+        <!--<svg class="carte_interactive_france">
+            <rect id="carte_interactive_france" rx="0" ry="0" x="0" y="0" width="698" height="782">
+            </rect>
+        </svg>-->
+        <div id="carte_interactive_france"></div>
+    </article>
+
+    <article>
+        <div id="Espace_de_travail">
+            <span>Espace de travail</span>
+        </div>
+
+        <div class="barre_de_recherche">
+            <form id="form_recherche" action="#" method="post">
+                <label for="barre_recherche">Barre de recherche</label>
+                <input type="text" class="search" name="search" onkeyup="formRecherche()" autocomplete="off"/>
+                <button id="barre_recherche_B" onclick="rechercher()">Rechercher</button>
+            </form>
+        </div>
+    </article>
+
+    </section>
 	<!--<img id="logo1" src="logo1.png" srcset="logo1.png 1x, logo1@2x.png 2x">-->
 
 	<!--<img id="Lyon_et_ses_arrondissements_ma" src="Lyon_et_ses_arrondissements_ma.png" srcset="Lyon_et_ses_arrondissements_ma.png 1x, Lyon_et_ses_arrondissements_ma@2x.png 2x">-->
 
-</div>
+
 <!--<script src="site_sareco.js"></script>-->
 
 <script type="text/javascript" src="france.js"></script>
