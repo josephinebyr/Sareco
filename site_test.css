@@ -1,18 +1,4 @@
-/*.mediaViewInfo {
-    --web-view-name: Fenetre Sarecoscope;
-    --web-view-id: Fenetre_Sarecoscope;
-    --web-scale-on-resize: true;
-    --web-enable-deep-linking: true;
-}
-:root {
-    --web-view-ids: Fenetre_Sarecoscope;
-}
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    border: none;
-}*/
+
 
 body{
     position : absolute;
@@ -21,108 +7,129 @@ body{
     overflow: auto;
 }
 
-/*@keyframes fadein {
-
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-
-}
-@keyframes fadein {
-
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-
-}
-@keyframes fadein {
-
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-
-}
-@keyframes fadein {
-
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-
-}
-@keyframes fadein {
-
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-
-}
-@keyframes fadein {
-
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-
-}
-@keyframes fadein {
-
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-
-}
-@keyframes fadein {
-
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-
-}*/
 
 /**********
 TITRE DU SITE
 **********/
-#Sarecoscope {
-    /*left: 730px;
-    top: 45px;*/
-    position: absolute;
-    overflow: visible;
-    width: 461px;
-    white-space: nowrap;
+header {
+    height: 150px;
     text-align: center;
+    font-size: 30px;
     font-family: Constantia;
     font-style: normal;
     font-weight: bold;
-    font-size: 80px;
     color: rgb(187, 3, 3);
+    background: url(Images/logo.png) left  no-repeat ;
+    margin: 10px;
+}
+
+/**********
+IMAGE LOGO DU SITE
+**********/
+img{
+    max-width: 100%;
+	height: auto;
+}
+
+article{
+    padding: 10px;
+    margin: 10px;
+    background: rgb(154, 252, 252);
+}
+
+/*****
+Add your flexbox CSS below here
+*****/
+section{
+    display : flex;
+}
+
+article{
+    flex: 1 200px;
+}
+
+article:nth-of-type(1){
+    display : flex;
+    flex-flow: column;
+    /*justify-items: left;*/
+    
+}
+
+article:nth-of-type(2){
+    flex: 3 200px;
+    display: flex;
+    flex-flow: column;
+}
+
+/*article:nth-of-type(3){
+    flex: 1 150px;
+    display: flex;
+}*/
+
+article:nth-of-type(1) div#choix_annee{
+    flex: 1 100px;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: space-around;
+}
+
+
+#donnees{
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    color: rgba(255,1,1,1); 
+}
+
+#carte_interactive_france{
+    height: 500px;
+}
+
+#button_rafraichir {
+    display: inline-block;
+    background-color: #7b38d8;
+    border-radius: 10px;
+    border: 4px double #cccccc;
+    color: #eeeeee;
+    text-align: center;
+    font-size: 15px;
+    /*padding: 5px;*/
+    width: 140px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+    }
+#button_rafraichir p {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+#button_rafraichir p:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+#button_rafraichir:hover {
+    background-color: #f7c2f9;
+}
+#button_rafraichir:hover p {
+    padding-right: 25px;
+}
+#button_rafraichir:hover p:after {
+    opacity: 1;
+    right: 0;
 }
 
 /**********
 BARRE DE RECHERCHE
 **********/
+/*
 .barre_de_recherche{
     position: absolute;
     overflow: visible;
@@ -153,7 +160,7 @@ BARRE DE RECHERCHE
     left: 1442px;
     top: 147px;
     overflow: visible;
-}
+}*/
 
 #form_recherche {width:358px;margin:0 auto}
 #form_recherche .search {
@@ -192,7 +199,7 @@ BARRE DE RECHERCHE
 /**********
 LOGO DU SITE
 **********/
-#Logo_du_site {
+/*#Logo_du_site {
     fill: rgba(255,255,255,1);
     stroke: rgba(112,112,112,1);
     stroke-width: 1px;
@@ -209,8 +216,8 @@ LOGO DU SITE
     left: 121px;
     top: 18px;
 }
-
-#Espace_de_travail {
+*/
+/*#Espace_de_travail {
     left: 1536px;
     top: 19px;
     position: absolute;
@@ -223,7 +230,7 @@ LOGO DU SITE
     font-weight: bold;
     font-size: 30px;
     color: rgba(25,25,25,1);
-}
+}*/
 
 /**********
 CARTE INTERACTIVE LYON AU CENTRE DU SITE
@@ -231,7 +238,7 @@ CARTE INTERACTIVE LYON AU CENTRE DU SITE
 /*#carte_interactive_france {
     fill: rgba(96,168,118,1);
 }*/
-
+/*
 #carte_interactive_france {
     position: absolute;
     overflow: visible;
@@ -250,11 +257,11 @@ CARTE INTERACTIVE LYON AU CENTRE DU SITE
     top: 276px;
     overflow: visible;
 }
-
+*/
 /**********
 TITRE CHOIX DES DONNEES
 **********/
-#donnees{
+/*#donnees{
     left: 148px;
     top: 239px;
     position: absolute;
@@ -264,11 +271,12 @@ TITRE CHOIX DES DONNEES
     font-weight: bold;
     font-size: 25px;
     color: rgba(255,1,1,1); 
-}
+}*/
 
 /**********
 FORMULAIRE DONNEES
 **********/
+/*
 .choix_echelle{
     position: absolute;
     overflow: visible;
@@ -276,19 +284,13 @@ FORMULAIRE DONNEES
     height: 69px;
     left: 35px;
     top: 290px; 
-
-    /*left: 35px;
-    top: 400px;
-    position: absolute;
-    overflow: visible;
-    width: 83px;*/
     white-space: nowrap;
     text-align: left;
     font-family: Segoe UI;
     font-style: normal;
-    /*font-weight: bold;*/
+
     font-size: 20px;
-    /*color: rgba(255,1,1,1);*/
+
 }
 
 #echelle {
@@ -365,7 +367,7 @@ FORMULAIRE DONNEES
     height: 39px;
     cursor: pointer;
     font-size: 15px;
-}
+}*/
 
 #btnValidationForm{
     top: 200px;
@@ -373,11 +375,11 @@ FORMULAIRE DONNEES
 }
 
 
-#logo1 {
+/*#logo1 {
     position: absolute;
     width: 213px;
     height: 177.5px;
     left: 145px;
     top: 31px;
     overflow: visible;
-}
+}*/
