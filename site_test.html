@@ -31,13 +31,10 @@
 
     <div class="barre_de_recherche">
         <form id="form_recherche" action="#" method="post">
-            <input type="text" class="search" name="search" value="Rechercher..." onfocus="if(this.value=='Rechercher...')this.value=''" onblur="if(this.value=='')this.value='Rechercher...'" autocomplete="off"/>
-        </form>
-       <!-- <form id="form-recherche" action="#" method="post">
             <label for="barre_recherche">Barre de recherche</label>
-            <input type="text" id="barre_recherche" name="search" autocomplete="off" onkeyup="formRecherche()">
-            <button id="barre_recherche_B" onclick="formRecherche()">Rechercher</button>
-        </form>-->
+            <input type="text" class="search" name="search" onkeyup="formRecherche()" autocomplete="off"/>
+            <button id="barre_recherche_B" onclick="rechercher()">Rechercher</button>
+        </form>
     </div>
 
 	<!--<img id="image-loupe" src="image-loupe.png" srcset="image-loupe.png 1x, image-loupe@2x.png 2x">-->

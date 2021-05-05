@@ -206,7 +206,7 @@ function ValidationForm() {
 }
 
 //Barre de recherche
-window.onload = function(){
+function formRecherche(){
 	
 	var form = document.getElementById("form_recherche");
 	var input = form.search;
@@ -257,6 +257,16 @@ window.onload = function(){
 		list.style.display = "none";	
 	};
 };
+
+function rechercher() {
+  //btn = document.getElementById("barre_recherche_B");
+  //btn.onclick( function () {
+    //console.log(document.getElementById("form_recherche").search);
+    console.log(document.getElementById("form_recherche").search);
+  //});
+  
+  
+}
 
 
 // Affichage de la source des données (INSEE)
