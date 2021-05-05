@@ -1,14 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fenetre Sarecoscope</title>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Fenetre Sarecoscope</title>
 
+    <!-- Code leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
 
-<link rel="stylesheet" href="site_sareco_chgt.css"/>
+    <!-- Code Anychart pour les graphiques -->
+    <script src="https://cdn.anychart.com/releases/8.8.0/js/anychart-base.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.8.0/js/anychart-data-adapter.min.js"></script>
+
+    <!-- Code pour l'xportation au format .png -->
+    <link rel="stylesheet" href="./Export_img/Leaflet.BigImage.min.css">
+    <script src="./Export_img/Leaflet.BigImage.min.js"></script>
+
+    <!-- Fichiers de style .css -->
+    <link rel="stylesheet" href="site_test.css"/>
 </head>
 
 <body>
@@ -202,7 +214,7 @@
             <form id="form_recherche" action="#" method="post">
                 <label for="barre_recherche">Barre de recherche</label>
                 <input type="text" class="search" name="search" onkeyup="formRecherche()" autocomplete="off"/>
-                <button id="barre_recherche_B" onclick="rechercher()">Rechercher</button>
+                <button id="barre_recherche_B" type='button' onclick="rechercher()">Rechercher</button>
             </form>
         </div>
     </article>
@@ -210,6 +222,7 @@
     </section>
 		
 </div>
-<script src="site_sareco.js"></script>
+<script src="france.js"></script>
+<script src="code.js"></script>
 </body>
 </html>
