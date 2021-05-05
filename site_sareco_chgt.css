@@ -1,0 +1,531 @@
+
+
+body{
+    position : absolute;
+    width : 100%;
+    background-color:rgba(254,215,215,1) ;
+    overflow: auto;
+}
+
+/**********
+TITRE DU SITE
+**********/
+header {
+    height: 150px;
+    text-align: center;
+    font-size: 30px;
+    font-family: Constantia;
+    font-style: normal;
+    font-weight: bold;
+    color: rgb(187, 3, 3);
+    background: url(Images/logo.png) left  no-repeat ;
+    margin: 10px;
+}
+
+/**********
+BARRE DE RECHERCHE
+**********/
+#form_recherche {width:358px;margin:0 auto}
+#form_recherche .search {
+	width:322px;height:33px;margin:4px;padding:0 13px;border:1px solid #cdcdcd;
+	color:#ccc;font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;font-size:14px;font-weight:bold;	
+	-moz-border-radius:2px;
+	-webkit-border-radius:2px;
+	border-radius:2px;
+	-moz-box-shadow:inset 0 1px 4px rgba(0,0,0,0.15), 4px 4px 0 #f1f1f1,-4px 4px 0 #f1f1f1,-4px -4px 0 #f1f1f1,4px -4px 0 #f1f1f1;
+	-webkit-box-shadow:inset 0 1px 4px rgba(0,0,0,0.15), 4px 4px 0 #f1f1f1,-4px 4px 0 #f1f1f1,-4px -4px 0 #f1f1f1,4px -4px 0 #f1f1f1;
+	box-shadow:inset 0 1px 4px rgba(0,0,0,0.15), 4px 4px 0 #f1f1f1,-4px 4px 0 #f1f1f1,-4px -4px 0 #f1f1f1,4px -4px 0 #f1f1f1
+}
+
+#form_recherche .search:focus {
+	color:#555;border-color:#c8c8c8;	
+	-moz-box-shadow:inset 0 1px 4px rgba(0,0,0,0.15), 4px 4px 0 #ececec,-4px 4px 0 #ececec,-4px -4px 0 #ececec,4px -4px 0 #ececec;
+	-webkit-box-shadow:inset 0 1px 4px rgba(0,0,0,0.15), 4px 4px 0 #ececec,-4px 4px 0 #ececec,-4px -4px 0 #ececec,4px -4px 0 #ececec;
+	box-shadow:inset 0 1px 4px rgba(0,0,0,0.15), 4px 4px 0 #ececec,-4px 4px 0 #ececec,-4px -4px 0 #ececec,4px -4px 0 #ececec
+}
+
+#form_recherche .suggestions {
+	width:342px;position:relative;margin:-6px auto 0;padding:0;list-style-type:none;border:1px solid #d5d4d4;background:#fff;
+	font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;font-size:13px;color:#555;	
+	-moz-border-radius:2px;
+	-webkit-border-radius:2px;
+	border-radius:2px;	
+	-moz-box-shadow:0 1px 3px rgba(0,0,0,0.1);
+	-webkit-box-shadow:0 1px 3px rgba(0,0,0,0.1);
+	box-shadow:0 1px 3px rgba(0,0,0,0.1)
+}
+
+#form_recherche .suggestions li {height:25px;padding:0 10px;line-height:25px;cursor:pointer;border-top:1px solid #f5f5f5}
+#form_recherche .suggestions li:hover {background-position:320px center;border-top-color:#fffac2}
+#form_recherche .suggestions li:first-child {border:none;}
+
+
+/**********
+IMAGE LOGO DU SITE
+**********/
+img{
+    max-width: 100%;
+	height: auto;
+}
+
+/**********
+AGENCEMENT DU SITE
+**********/
+article{
+    padding: 10px;
+    margin: 10px;
+    background: rgb(154, 252, 252);
+}
+
+/*****
+Add your flexbox CSS below here
+*****/
+section{
+    display : flex;
+}
+
+article{
+    flex: 1 200px;
+}
+
+article:nth-of-type(1){
+    display : flex;
+    flex-flow: column;
+    /*justify-items: left;*/
+    
+}
+
+article:nth-of-type(2){
+    flex: 3 200px;
+    display: flex;
+    flex-flow: column;
+}
+
+/*article:nth-of-type(3){
+    flex: 1 150px;
+    display: flex;
+}*/
+
+article:nth-of-type(1) div#choix_annee{
+    flex: 1 100px;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: space-around;
+}
+
+
+#donnees{
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    color: rgba(255,1,1,1); 
+}
+
+#carte_interactive_france{
+    height: 500px;
+}
+
+#button_rafraichir {
+    display: inline-block;
+    background-color: #7b38d8;
+    border-radius: 10px;
+    border: 4px double #cccccc;
+    color: #eeeeee;
+    text-align: center;
+    font-size: 15px;
+    /*padding: 5px;*/
+    width: 140px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+    }
+#button_rafraichir p {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+#button_rafraichir p:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+#button_rafraichir:hover {
+    background-color: #f7c2f9;
+}
+#button_rafraichir:hover p {
+    padding-right: 25px;
+}
+#button_rafraichir:hover p:after {
+    opacity: 1;
+    right: 0;
+}
+
+#btnValidationForm{
+    top: 200px;
+    left: 500px;
+}
+
+/**********
+CARTE INTERACTIVE LYON AU CENTRE DU SITE
+**********/
+/*#carte_interactive_france {
+    fill: rgba(96,168,118,1);
+}*/
+/*
+.carte_interactive_france {
+    position: absolute;
+    overflow: visible;
+    width: 698px;
+    height: 782px;
+    left: 660px;
+    top: 265px;
+    fill: rgba(96,168,118,1);
+}
+
+#Lyon_et_ses_arrondissements_ma {
+    position: absolute;
+    width: 673px;
+    height: 760px;
+    left: 673px;
+    top: 276px;
+    overflow: visible;
+}
+*/
+
+/**********
+TITRE CHOIX DES INDICATEURS
+**********/
+
+/*
+#Choix_des_indicateurs {
+    left: 148px;
+    top: 249px;
+    position: absolute;
+
+    width: 251px;
+
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 25px;
+    color: rgba(255,1,1,1);
+}
+*/
+
+
+
+/**********
+INDICATEURS
+**********/
+
+/**********
+TAUX DE MOTORISATION DES MENAGES
+**********/
+/*
+#Taux_de_motorisation_des_menages {
+    left: 35px;
+    top: 363px;
+    position: absolute;
+    overflow: visible;
+    width: 307px;
+    white-space: nowrap;
+    text-align: center;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    color: rgba(6,6,6,1);
+}
+
+#Niveau__ {
+    left: 35px;
+    top: 400px;
+    position: absolute;
+    overflow: visible;
+    width: 83px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    color: rgba(255,1,1,1);
+}
+
+
+#Composant_Communes_1 {
+    position: absolute;
+    width: 183px;
+    height: 37px;
+    left: 119px;
+    top: 395px;
+    overflow: visible;
+}
+
+#Liste_communes_iris_1{
+    width: 191px;
+    height: 39px;
+    cursor: pointer;
+    font-size: 15px;
+}
+*/
+
+/****
+Liste deroulante annee n°1
+****/
+/*
+#Composant_Annee_1 {
+    position: absolute;
+    width: 175px;
+    height: 37px;
+    left: 341px;
+    top: 395px;
+    overflow: visible;
+}
+#Liste_Annee_1{
+    width: 191px;
+    height: 39px;
+    cursor: pointer;
+    font-size: 15px;
+}
+*/
+/**********
+EVOLUTION TAUX DE MOTORISATION DES MENAGES PAR ANNEE
+**********/
+/*
+#Evolution_du_taux_de_motorisation {
+    left: 35px;
+    top: 442px;
+    position: absolute;
+    overflow: visible;
+    width: 549px;
+    white-space: nowrap;
+    cursor: pointer;
+    --web-animation: fadein 0.3s ease-out;
+    --web-action-type: page;
+    --web-action-target: Carte__volution_par_ann_e.html;
+    text-align: center;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    color: rgba(3,3,3,1);
+}
+*/
+
+/**********
+TAUX DE VENUE AU TRAVAIL DES ACTIFS
+**********/
+/*
+#Taux_de_venue_au_travail_des_actifs {
+    left: 35px;
+    top: 500px;
+    position: absolute;
+    overflow: visible;
+    width: 391px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    color: rgba(3,3,3,1);
+}
+
+#Composant_Mode_transport_1 {
+    position: absolute;
+    width: 219px;
+    height: 38px;
+    left: 121px;
+    top: 565px;
+    overflow: visible;
+}
+#Liste_mode_transport_1{
+    width: 191px;
+    height: 39px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+#-_Depuis_la_commune_de_travail {
+    left: 35px;
+    top: 618px;
+    position: absolute;
+    overflow: visible;
+    width: 286px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    color: rgba(3,3,3,1);
+}
+#Composant_Mode_transport_2 {
+    position: absolute;
+    width: 219px;
+    height: 38px;
+    left: 121px;
+    top: 650px;
+    overflow: visible;
+    cursor: pointer;
+    --web-animation: fadein 0.3s ease-out;
+    --web-action-type: page;
+    --web-action-target: Liste_d_roulante_mode_transport.html;
+}
+#Liste_mode_transport_2{
+    width: 191px;
+    height: 39px;
+    cursor: pointer;
+    font-size: 15px;
+}
+*/
+
+/**********
+EVOLUTION TAUX DE VENUE AU TRAVAIL DES ACTIFS
+**********/
+/*
+#Evolution_des_taux_de_venue_au_travail_des_actifs{
+    left: 35px;
+    top: 699px;
+    position: absolute;
+    overflow: visible;
+    width: 435px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    color: rgba(3,3,3,1);
+}
+
+#-_Pour_les_transports_en_commun {
+    left: 46px;
+    top: 726px;
+    position: absolute;
+    overflow: visible;
+    width: 354px;
+    white-space: nowrap;
+    cursor: pointer;
+    --web-animation: fadein 0.3s ease-out;
+    --web-action-type: page;
+    --web-action-target: Carte__volution_taux_de_venue_transports.html;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    color: rgba(0,0,0,1);
+}
+#-_Pour_la_voiture {
+    left: 46px;
+    top: 758px;
+    position: absolute;
+    overflow: visible;
+    width: 239px;
+    white-space: nowrap;
+    cursor: pointer;
+    --web-animation: fadein 0.3s ease-out;
+    --web-action-type: page;
+    --web-action-target: Carte__volution_taux_de_venue_voitures.html;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    color: rgba(0,0,0,1);
+}
+
+#Distribution_du_nombre_de_voit {
+    left: 35px;
+    top: 819px;
+    position: absolute;
+    overflow: visible;
+    width: 551px;
+    white-space: nowrap;
+    cursor: pointer;
+    --web-animation: fadein 0.3s ease-out;
+    --web-action-type: page;
+    --web-action-target: Distribution_voiture.html;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    color: rgba(3,3,3,1);
+}
+#Taux_dequipements_en_garage_prive {
+    left: 35px;
+    top: 864px;
+    position: absolute;
+    overflow: visible;
+    width: 555px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    color: rgba(3,3,3,1);
+}
+#Niveau___bd {
+    left: 35px;
+    top: 928px;
+    position: absolute;
+    overflow: visible;
+    width: 83px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    color: rgba(255,1,1,1);
+}
+
+#Composant_Annee_2 {
+    position: absolute;
+    width: 175px;
+    height: 37px;
+    left: 341px;
+    top: 923px;
+    overflow: visible;
+}
+#Liste_Annee_2{
+    width: 191px;
+    height: 39px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+#Composant_Communes_2 {
+    position: absolute;
+    width: 183px;
+    height: 37px;
+    left: 119px;
+    top: 923px;
+    overflow: visible;
+}
+#Liste_communes_iris_2{
+    width: 191px;
+    height: 39px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+#logo1 {
+    position: absolute;
+    width: 213px;
+    height: 177.5px;
+    left: 145px;
+    top: 31px;
+    overflow: visible;
+}
+*/
