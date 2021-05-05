@@ -258,9 +258,10 @@ function formRecherche(){
 };
 
 function rechercher() {
-  var nomGeom = document.getElementById("form_recherche").search.value;
-  unite_geographique.eachLayer(function (layer) {   
-    if (layer.feature.properties.libgeo == nomGeom) {
+  var nomRecherche = document.getElementById("form_recherche").search.value;
+  unite_geographique.eachLayer(function (layer) { 
+    nomGeom = (unite_geographique==geojson_communes) ? layer.feature.properties.libgeo : layer.feature.properties.NOM_COM;
+    if (nomGeom==nomRecherche) {
       map.fitBounds(layer.getBounds());
     }
   });
