@@ -125,13 +125,7 @@ function select(e) {
 
 // Actions sur les géométries
 function onEachFeature(feature, layer) {
-  var label = L.marker(layer.getBounds().getCenter(), {
-        icon: L.divIcon({
-          className: 'label',
-          html: (this.feature==geojson_communes) ? feature.properties.libgeo : feature.properties.NOM_COM,
-        })
-  });
-  if (map.getBounds().overlaps(layer.getBounds())) {label.addTo(layerNomCommunes)};
+  
   layer.on({
       //mouseover: highlightFeature,
       //mouseout: resetHighlight,
@@ -143,13 +137,13 @@ function onEachFeature(feature, layer) {
 }
 
 // Affichage des noms de villes qu'à partir d'un certain zoom
-map.on("zoomend", function(e){
+/*map.on("zoomend", function(e){
   if(map.getZoom() < 11) {
       map.removeLayer(layerNomCommunes);
   }else  {
     layerNomCommunes.addTo(map);
   }
-});
+});*/
 
 // Importation des fichiers geojson pour afficher les limites de communes et IRIS
 var geojson_communes;
@@ -194,11 +188,19 @@ function changeGeometries(element) {
 function displayGeometries() {
   layerUnitesGeog.clearLayers();
   unite_geographique.eachLayer(function(layer) {
+      var label = L.marker(layer.getBounds().getCenter(), {
+        icon: L.divIcon({
+          className: 'label',
+          html: (unite_geographique==geojson_communes) ? layer.feature.properties.libgeo : layer.feature.properties.NOM_COM,
+        })
+      });
       if (map.getBounds().overlaps(layer.getBounds())) {
         layer.addTo(layerUnitesGeog);
         layerUnitesGeog.addTo(map);
+        label.addTo(layerNomCommunes);
+        layerNomCommunes.addTo(map);
       };
-    });
+  });
 }
 map.on('zoomend', () => {displayGeometries()});
 map.on('moveend', () => {displayGeometries()});
@@ -220,6 +222,19 @@ function ValidationForm() {
   return annees
 }
 
+//Affichage des légendes (noms des communes et valeur des indicateurs)
+function displayNames() {
+  if (layerNomCommunes){
+    console.log("if");
+    layerNomCommunes.addTo(map);
+  } else {
+    console.log("else");
+    map.removeLayer(layerNomCommunes);
+  }
+}
+function displayIndicators() {
+
+}
 //Barre de recherche
 function formRecherche(){
 	

@@ -26,53 +26,54 @@
 <body>
 <div id="Fenetre_Sarecoscope">
 	<header>
-        <!--<img id="logo1" src="logo1.png" srcset="logo1.png 1x, logo1@2x.png 2x">-->
-        <h1>Sarecoscope</h1>
+        <img id="logo" src="Images/sarecoscope.png" >
+        <!--<h1>Sarecoscope</h1>-->
     </header>
     
     <section>
 
     <article>
-	<div id="Choix_des_indicateurs">
-		<h4>Choix des indicateurs</h4>
-    </div>
-    
-
-	<div id="Taux_de_motorisation_des_menages">
-		<p>Taux de motorisation des ménages</p>
-    </div>
-    
-    <div id=inline>
-	<div id="Niveau">
-		<p>Niveau : </p>
-    </div>
-    
-	<div id="echelle">
-        <button class="onoff" onclick="changeGeometries(this)"><div>Communes</div></button>
-    </div>
-    
-	<form method="GET" name="form" onsubmit = "return ValidationForm()">
-        <!--<div class="choix_annee">
-            <p>Choix de(s) l'année(s) :</p>
-        </div>-->
-        <div id="annees">
-            <form name="annees" action="">
-                <select name="Liste_Annee" id="Liste_Annee" multiple>
-                    <option>2006</option>
-                    <option>2007</option>
-                    <option>2008</option>
-                    <option>2009</option>
-                    <option>2010</option>
-                    <option>2011</option>
-                    <option>2012</option>
-                    <option>2013</option>
-                    <option>2014</option>
-                    <option>2015</option>
-                    <option>2016</option>
-                    <option>2017</option>
-                </select>
-            </form>
+        <div id="Choix_des_indicateurs">
+            <h4>Choix des indicateurs</h4>
         </div>
+        
+
+        <div id="Taux_de_motorisation_des_menages">
+            <p>Taux de motorisation des ménages</p>
+        </div>
+    
+        <div id=inline>
+            <div id="Niveau">
+                <p>Niveau : </p>
+            </div>
+            
+            <div id="echelle">
+                <button class="onoff" onclick="changeGeometries(this)"><div>Communes</div></button>
+            </div>
+    
+        <form method="GET" name="form" onsubmit = "return ValidationForm()">
+            <!--<div class="choix_annee">
+                <p>Choix de(s) l'année(s) :</p>
+            </div>-->
+            <div id="annees">
+                <form name="annees" action="">
+                    <select name="Liste_Annee" id="Liste_Annee" multiple>
+                        <option>2006</option>
+                        <option>2007</option>
+                        <option>2008</option>
+                        <option>2009</option>
+                        <option>2010</option>
+                        <option>2011</option>
+                        <option>2012</option>
+                        <option>2013</option>
+                        <option>2014</option>
+                        <option>2015</option>
+                        <option>2016</option>
+                        <option>2017</option>
+                    </select>
+                </form>
+            </div>
+        </form>
     </div>
 	<!--<div onclick="application.showOverlay(event,'Carte_volution_par_anne',1430,291)" id="Evolution_du_taux_de_motorisation">
 		<span>- Evolution du taux de motorisation par année de 2006 à 2017</span>
@@ -154,33 +155,7 @@
     </div>
     
     <div id="inline">
-	<div id="Niveau">
-		<p>Niveau : </p>
-    </div>
-    <div id="echelle">
-        <button class="onoff" onclick="changeGeometries(this)"><div>Communes</div></button>
-    </div>
-    
-    
-	<form method="GET" name="form" onsubmit = "return ValidationForm()">
-        <div id="annees">
-            <form name="annees" action="">
-                <select name="Liste_Annee" id="Liste_Annee" multiple>
-                    <option>2006</option>
-                    <option>2007</option>
-                    <option>2008</option>
-                    <option>2009</option>
-                    <option>2010</option>
-                    <option>2011</option>
-                    <option>2012</option>
-                    <option>2013</option>
-                    <option>2014</option>
-                    <option>2015</option>
-                    <option>2016</option>
-                    <option>2017</option>
-                </select>
-            </form>
-        </div>
+	
     </div>
 
     <button type="submit" id="btnValidationForm" onclick="ValidationForm()">
