@@ -28,14 +28,13 @@
 	<header>
         <!--<img id="logo1" src="logo1.png" srcset="logo1.png 1x, logo1@2x.png 2x">-->
         <h1>Sarecoscope</h1>
-        <p>Espace de travail</p>
     </header>
     
     <section>
 
     <article>
 	<div id="Choix_des_indicateurs">
-		<p>Choix des indicateurs</p>
+		<h4>Choix des indicateurs</h4>
     </div>
     
 
@@ -80,7 +79,7 @@
     </div>-->
     
 	<div id="Taux_de_venue_au_travail_des_actifs">
-		<p>Taux de venue au travail des actifs par mode<br/>- Depuis la commune de résidence :</p>
+		<p>Taux de venue au travail des actifs par mode<br/>Depuis la commune de résidence :</p>
     </div>
     
 	<div onclick="application.showOverlay(event,'Liste_deroulante_mode_transport',121,566)" id="Composant_Mode_transport_1" class="Composant_Mode_transport_1">
@@ -106,7 +105,7 @@
     </div>
     
 	<div id="Depuis_la_commune_de_travail">
-		<p>- Depuis la commune de travail :</p>
+		<p>Depuis la commune de travail :</p>
     </div>
     
 	<div onclick="application.showOverlay(event,'Liste_droulante_mode_transport',121,650)" id="Composant_Mode_transport_2" class="Composant_Mode_transport_2">
@@ -130,47 +129,40 @@
     </div>
     
 	<div id="Evolution_des_taux_de_venue_au_travail_des_actifs">
-		<p>- Evolution des taux de venue au travail des actifs</p>
+		<p>Evolution des taux de venue au travail des actifs</p>
     </div>
 
-    <div onclick="application.showOverlay(event,'Carte_evolution_taux_de_venuetransports',1432,703)" id="-_Pour_les_transports_en_commun">
-		<span>-> Pour les transports en commun</span>
-    </div>
+    <div id="checkbox_taux_de_venue">
+        <div>
+            <input type="checkbox" id="scales" name="scales">
+            <label for="scales">Pour les transports en commun</label>
+        </div>
     
-	<div onclick="application.showOverlay(event,'Carte_evolution_taux_de_venuevoitures',1435,721)" id="-_Pour_la_voiture">
-		<span>-> Pour la voiture</span>
+        <div>
+            <input type="checkbox" id="scales" name="scales">
+            <label for="scales">Pour la voiture</label>
+        </div>
     </div>
-    
-	<div onclick="application.showOverlay(event,'Distribution_voiture',1422,687)" id="Distribution_du_nombre_de_voit">
-		<span>Distribution du nombre de voitures à disposition des ménages</span>
+    <p> </p>
+	<div>
+        <input type="checkbox" id="Distribution_du_nombre_de_voit" name="Distribution_du_nombre_de_voit">
+        <label for="Distribution_du_nombre_de_voit">Distribution du nombre de voitures à disposition des ménages</label>
     </div>
     
 	<div id="Taux_dequipements_en_garage_prive">
 		<p>Taux d'équipements en garage privé des ménages (communes <br/>ou Iris)</p>
     </div>
     
+    <div id="inline">
 	<div id="Niveau">
-		<span>Niveau : </span>
+		<p>Niveau : </p>
     </div>
-    <div id="Composant_Communes_2" class="Composant_Communes_2">
-		<!--<svg class="Communes_1">
-			<rect id="Communes_1" rx="0" ry="0" x="0" y="0" width="183" height="37">
-			</rect>
-		</svg>
-		<div id="Communes">
-			<span>Communes</span>
-		</div>
-		<img id="double_fleche_bl" src="double_fleche_bl.png" srcset="double_fleche_bl.png 1x, double_fleche_bl@2x.png 2x">
-    -->
     <div id="echelle">
         <button class="onoff" onclick="changeGeometries(this)"><div>Communes</div></button>
     </div>
-    </div>
+    
     
 	<form method="GET" name="form" onsubmit = "return ValidationForm()">
-        <div class="choix_annee">
-            <p>Choix de(s) l'année(s) :</p>
-        </div>
         <div id="annees">
             <form name="annees" action="">
                 <select name="Liste_Annee" id="Liste_Annee" multiple>
@@ -189,9 +181,12 @@
                 </select>
             </form>
         </div>
-    
-    <button type="submit" id="btnValidationForm" onclick="ValidationForm()">Valider</button>
+    </div>
 
+    <button type="submit" id="btnValidationForm" onclick="ValidationForm()">
+        <div id="arrow">&#8594;<div id="valider">Valider</div></div>
+        <!--<div id="arrow" title="U+21A3: RIGHTWARDS ARROW WITH TAIL">↣</div>-->
+    </button>
     </article>
 
     <article>
