@@ -34,7 +34,7 @@ query.on("row", function(row,result){
 });
 pgClient.end();*/
 
-var map = L.map('carte_interactive_france').setView([46, 5], 10);
+var map = L.map('carte_interactive_france')//).setView([46, 5], 10);
 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
   maxZoom: 18,
   attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
@@ -44,6 +44,10 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
   zoomOffset: -1
 }).addTo(map);
 map.doubleClickZoom.disable();
+
+
+
+map.setView([46, 5], 10);
 
 var layerNomCommunes = L.layerGroup();
 var layerUnitesGeog = L.featureGroup();
@@ -59,7 +63,7 @@ info.onAdd = function (map) {
 
 info.update = function (props) {
   this._div.innerHTML = '<h4>Villes françaises</h4>' +  (props ?
-      '<b>' + props.libgeo + '</b><br /> Code postal : ' + props.codgeo + '<br /> Indicateur : ' + props.indicateur
+      '<b>' + props.libgeo + '</b><br /> Code postal : ' + props.codgeo
       : 'Survolez une commune');
 };
 
@@ -202,7 +206,7 @@ function style(feature, tabTxMotorisation) {
       color: 'grey',
       dashArray: '3',
       fillOpacity: 0.8,
-      fillColor: (this.feature==geojson_iris) ? getColor(feature.properties.INSEE_COM) : getColor(feature.properties.indicateur)
+      fillColor: 'white'
   };
 }
 
@@ -288,7 +292,8 @@ function onEachFeature(feature, layer) {
           className: 'label',
           html: (this.feature==geojson_communes) ? feature.properties.libgeo : feature.properties.NOM_COM,
         })
-}).addTo(layerNomCommunes);
+  });
+  if (map.getBounds().overlaps(layer.getBounds())) {label.addTo(layerNomCommunes)};
   layer.on({
       //mouseover: highlightFeature,
       //mouseout: resetHighlight,
@@ -332,7 +337,7 @@ geojson_iris = L.geoJson(IRIS, {
  // Gestion de l'échelle affichée : IRIS ou communes
 var unite_geographique = geojson_communes;
 
-function onoff(element) {
+function changeGeometries(element) {
   if (unite_geographique == geojson_communes) {
       unite_geographique = geojson_iris;
       blabel = "Iris";
@@ -347,8 +352,24 @@ function onoff(element) {
   unite_geographique.addTo(layerUnitesGeog);
   layerUnitesGeog.addTo(map);
 }
+<<<<<<< HEAD
 unite_geographique.addTo(layerUnitesGeog);
 layerUnitesGeog.addTo(map);*/
+=======
+
+function displayGeometries() {
+  layerUnitesGeog.clearLayers();
+  unite_geographique.eachLayer(function(layer) {
+      if (map.getBounds().overlaps(layer.getBounds())) {
+        layer.addTo(layerUnitesGeog);
+        layerUnitesGeog.addTo(map);
+      };
+    });
+}
+map.on('zoomend', () => {displayGeometries()});
+map.on('moveend', () => {displayGeometries()});
+
+>>>>>>> df2c65b3c5d326c217df20a69677d13dec9d406c
 
 // Sélection de l'année
 var Liste_Annee = document.getElementById("Liste_Annee");
@@ -420,9 +441,16 @@ function formRecherche(){
 };
 
 function rechercher() {
+<<<<<<< HEAD
   var nomGeom = document.getElementById("form_recherche").search.value;
   unite_geographique.eachLayer(function (layer) {
     if (layer.feature.properties.libgeo == nomGeom) {
+=======
+  var nomRecherche = document.getElementById("form_recherche").search.value;
+  unite_geographique.eachLayer(function (layer) { 
+    nomGeom = (unite_geographique==geojson_communes) ? layer.feature.properties.libgeo : layer.feature.properties.NOM_COM;
+    if (nomGeom==nomRecherche) {
+>>>>>>> df2c65b3c5d326c217df20a69677d13dec9d406c
       map.fitBounds(layer.getBounds());
     }
   });
