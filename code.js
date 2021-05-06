@@ -46,11 +46,104 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 map.doubleClickZoom.disable();
 
 
-
 map.setView([46, 5], 10);
 
 var layerNomCommunes = L.layerGroup();
 var layerUnitesGeog = L.featureGroup();
+
+// Couleur dépendant de la valeur de l'indicateur
+function getColor(indicateur) {
+  return indicateur > 3.05 ? '#E62138' :
+          indicateur > 2  ? 'FFCC33' :
+          indicateur > 1.5  ? '#FFFF66' :
+          indicateur > 1  ? '#33FF66' :
+          indicateur > 0.5   ? '#009933' :
+                      '#FFFFFF';
+}
+
+function indicateur() {
+    $.ajax({
+        url: 'database.php',
+        type:'POST',
+        data: 'requete',
+        //async: false,
+        success: function(data){
+
+          tabTxMotorisationMaison = CalculTxMotorisation(data);
+
+          var geojson_communes = L.geoJson(COMMUNES).addTo(map);
+
+          var unite_geographique = geojson_communes;
+
+          function displayGeometries() {
+            layerUnitesGeog.clearLayers();
+            unite_geographique.eachLayer(function(layer) {
+                if (map.getBounds().overlaps(layer.getBounds())) {
+                  layer.setStyle({weight: 1,
+                  opacity: 1,
+                  color: 'grey',
+                  dashArray: '3',
+                  fillOpacity: 0.8,
+                  fillColor: getColor(Colorisation(layer.feature))});
+                  layer.addTo(layerUnitesGeog);
+                  layerUnitesGeog.addTo(map);
+                };
+              });
+          }
+
+          displayGeometries();
+          map.on('zoomend', () => {displayGeometries()});
+          map.on('moveend', () => {displayGeometries()});
+
+          function style(feature) {
+            return {
+                weight: 1,
+                opacity: 1,
+                color: 'grey',
+                dashArray: '3',
+                fillOpacity: 0.8,
+                fillColor: getColor(Colorisation(feature))
+
+            };
+          }
+
+          function Colorisation(feature) {
+
+            for(i in tabTxMotorisationMaison){
+              if(tabTxMotorisationMaison[i][0]==feature.properties.libgeo){
+                          return(tabTxMotorisationMaison[i][1]);
+
+                        }
+                      //console.log(typeof(feature.properties.codgeo), typeof(tabTxMotorisation[i][0]))
+
+                    }
+          }
+
+            }
+
+       })
+
+};
+// Function TxMotorisationMaison
+// Function TxMotorisationAppartement
+// Function
+
+function CalculTxMotorisation(data){
+
+  var tabTxMotorisationMaison = [];
+  var tabTxMotorisationAppartement = [];
+  var tabTxMotorisationTsLog = [];
+  var tabTxMotorisationAutre = [];
+
+  for(i=0; i<data.length; i++){
+    tabTxMotorisationMaison[i]=[data[i][21],(data[i][7]+2*data[i][8]+3*data[i][9]+0.05*data[i][8])/data[i][10]];
+    tabTxMotorisationAppartement[i]=(data[i][2]+2*data[i][3]+3*data[i][4]+0.05*data[i][4])/data[i][5];
+    tabTxMotorisationTsLog[i]=(data[i][12]+2*data[i][13]+3*data[i][14]+0.05*data[i][14])/data[i][15];
+    tabTxMotorisationAutre[i]=(data[i][17]+2*data[i][18]+3*data[i][19]+0.05*data[i][19])/data[i][20];
+  }
+
+  return(tabTxMotorisationMaison);
+}
 
 // Panneau d'affichage des informations en haut à droite de la carte
 var info = L.control();
@@ -69,187 +162,6 @@ info.update = function (props) {
 
 info.addTo(map);
 
-
-// Couleur dépendant de la valeur de l'indicateur
-function getColor(indicateur) {
-  return indicateur > 0.9 ? '#E62138' :
-          indicateur > 0.7  ? '#E94153' :
-          indicateur > 0.5  ? '#ED6070' :
-          indicateur > 0.3  ? '#F1808D' :
-          indicateur > 0.1   ? '#FBDFE2' :
-                      '#FFFFFF';
-}
-/*function getColor(indicateur) {
-  return indicateur > 10 ? '#E62138' :
-          indicateur > 5  ? '#E94153' :
-          indicateur > 2  ? '#ED6070' :
-          indicateur > 1  ? '#F1808D' :
-          indicateur > 0.5   ? '#FBDFE2' :
-                      '#FFFFFF';
-}
-*/
-function indicateur() {
-    $.ajax({
-        url: 'database.php',
-        type:'POST',
-        data: 'requete',
-        //async: false,
-        success: function(data){
-
-          tabTxMotorisationMaison = CalculTxMotorisation(data);
-
-          /*function style(feature) {
-            return {
-                weight: 1,
-                opacity: 1,
-                color: 'grey',
-                dashArray: '3',
-                fillOpacity: 0.8,
-                fillColor: for(i in tabTxMotorisationMaison){
-                              if(tabTxMotorisationMaison[i][0]==feature.properties.codgeo){
-                                getColor(tabTxMotorisationMaison[i][1]);
-                              }
-                }
-
-            };
-          }*/
-
-          console.log(tabTxMotorisationMaison);
-
-          geojson_communes = L.geoJson(COMMUNES, {
-            style: style(tabTxMotorisationMaison),
-            onEachFeature: onEachFeature,
-
-            pointToLayer: function(feature,latlng){
-                label = String(feature.properties.libgeo)
-                return new L.CircleMarker(latlng, {
-                      radius: 1,
-                }).bindTooltip(label, {permanent: true, opacity: 0.7}).openTooltip();
-            }
-          });
-
-          geojson_iris = L.geoJson(IRIS, {
-            style: style(tabTxMotorisationMaison),
-            onEachFeature: onEachFeature
-          });
-
-          var unite_geographique = geojson_communes;
-
-          function onoff(element) {
-            if (unite_geographique == geojson_communes) {
-                unite_geographique = geojson_iris;
-                blabel = "Iris";
-            } else {
-                unite_geographique = geojson_communes;
-                blabel = "Communes";
-            }
-            var child=element.firstChild;
-            child.innerHTML=blabel;
-            map.removeLayer(layerUnitesGeog);
-            layerUnitesGeog.clearLayers();
-            unite_geographique.addTo(layerUnitesGeog);
-            layerUnitesGeog.addTo(map);
-          }
-          unite_geographique.addTo(layerUnitesGeog);
-          layerUnitesGeog.addTo(map);
-          
-            }
-
-       })
-
-};
-// Function TxMotorisationMaison
-// Function TxMotorisationAppartement
-// Function
-
-function CalculTxMotorisation(data){
-
-  var tabTxMotorisationMaison = [];
-  var tabTxMotorisationAppartement = [];
-  var tabTxMotorisationTsLog = [];
-  var tabTxMotorisationAutre = [];
-
-  for(i=0; i<data.length; i++){
-    tabTxMotorisationMaison[i]=[data[i][0],(data[i][7]+2*data[i][8]+3*data[i][9]+0.05*data[i][8])/data[i][10]];
-    tabTxMotorisationAppartement[i]=(data[i][2]+2*data[i][3]+3*data[i][4]+0.05*data[i][4])/data[i][5];
-    tabTxMotorisationTsLog[i]=(data[i][12]+2*data[i][13]+3*data[i][14]+0.05*data[i][14])/data[i][15];
-    tabTxMotorisationAutre[i]=(data[i][17]+2*data[i][18]+3*data[i][19]+0.05*data[i][19])/data[i][20];
-  }
-
-  return(tabTxMotorisationMaison);
-}
-
-function style(feature, tabTxMotorisation) {
-  console.log("Bonjour");
-  return {
-      weight: 1,
-      opacity: 1,
-      color: 'grey',
-      dashArray: '3',
-      fillOpacity: 0.8,
-      fillColor: function () {for(i in tabTxMotorisation){
-                    if(tabTxMotorisation[i][0]==Number(feature.properties.codgeo)){
-                      getColor(tabTxMotorisation[i][1]);
-
-                    }
-                  //console.log(typeof(feature.properties.codgeo), typeof(tabTxMotorisation[i][0]))
-
-                }
-      }
-
-  };
-}
-/*function style(feature) {
-  return {
-      weight: 1,
-      opacity: 1,
-      color: 'grey',
-      dashArray: '3',
-      fillOpacity: 0.8,
-      fillColor: 'white'
-  };
-}
-
-function indicateur() {
-    $.ajax({
-        url: 'database.php',
-        type:'POST',
-        data: 'requete',
-        async: false,
-        success: function(data){
-
-          var tabTxMotorisationMaison = [];
-          var tabTxMotorisationAppartement = [];
-          var tabTxMotorisationTsLog = [];
-          var tabTxMotorisationAutre = [];
-          for(i=0; i<data.length; i++){
-            tabTxMotorisationMaison[i]=[data[i][0],(data[i][7]+2*data[i][8]+3*data[i][9]+0.05*data[i][8])/data[i][10]];
-            tabTxMotorisationAppartement[i]=(data[i][2]+2*data[i][3]+3*data[i][4]+0.05*data[i][4])/data[i][5];
-            tabTxMotorisationTsLog[i]=(data[i][12]+2*data[i][13]+3*data[i][14]+0.05*data[i][14])/data[i][15];
-            tabTxMotorisationAutre[i]=(data[i][17]+2*data[i][18]+3*data[i][19]+0.05*data[i][19])/data[i][20];
-          }
-
-          function style(feature) {
-            return {
-                weight: 1,
-                opacity: 1,
-                color: 'grey',
-                dashArray: '3',
-                fillOpacity: 0.8,
-                fillColor: for(i in tabTxMotorisationMaison){
-                              if(tabTxMotorisationMaison[i][0]==feature.properties.codgeo){
-                                getColor(tabTxMotorisationMaison[i][1]);
-                              }
-                }
-
-            };
-          }
-
-            }
-
-       })
-
-};*/
 
 
 
@@ -304,6 +216,7 @@ function onEachFeature(feature, layer) {
   nomsCommunesIris.push((this.feature==geojson_communes) ? feature.properties.libgeo : feature.properties.NOM_COM)
 }
 
+
 // Affichage des noms de villes qu'à partir d'un certain zoom
 map.on("zoomend", function(e){
   if(map.getZoom() < 11) {
@@ -317,8 +230,8 @@ map.on("zoomend", function(e){
 var geojson_communes;
 var geojson_iris;
 var nomsCommunesIris = [];
-
-/*geojson_communes = L.geoJson(COMMUNES, {
+*/
+geojson_communes = L.geoJson(COMMUNES, {
   style: style,
   onEachFeature: onEachFeature,
 
@@ -354,7 +267,7 @@ function changeGeometries(element) {
 }
 <<<<<<< HEAD
 unite_geographique.addTo(layerUnitesGeog);
-layerUnitesGeog.addTo(map);*/
+layerUnitesGeog.addTo(map);
 =======
 
 function displayGeometries() {
@@ -369,7 +282,7 @@ function displayGeometries() {
 map.on('zoomend', () => {displayGeometries()});
 map.on('moveend', () => {displayGeometries()});
 
->>>>>>> df2c65b3c5d326c217df20a69677d13dec9d406c
+//>>>>>>> df2c65b3c5d326c217df20a69677d13dec9d406c
 
 // Sélection de l'année
 var Liste_Annee = document.getElementById("Liste_Annee");
@@ -447,7 +360,7 @@ function rechercher() {
     if (layer.feature.properties.libgeo == nomGeom) {
 =======
   var nomRecherche = document.getElementById("form_recherche").search.value;
-  unite_geographique.eachLayer(function (layer) { 
+  unite_geographique.eachLayer(function (layer) {
     nomGeom = (unite_geographique==geojson_communes) ? layer.feature.properties.libgeo : layer.feature.properties.NOM_COM;
     if (nomGeom==nomRecherche) {
 >>>>>>> df2c65b3c5d326c217df20a69677d13dec9d406c
