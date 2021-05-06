@@ -68,6 +68,14 @@ info.addTo(map);
 
 // Couleur dépendant de la valeur de l'indicateur
 function getColor(indicateur) {
+  return indicateur > 0.9 ? '#E62138' :
+          indicateur > 0.7  ? '#E94153' :
+          indicateur > 0.5  ? '#ED6070' :
+          indicateur > 0.3  ? '#F1808D' :
+          indicateur > 0.1   ? '#FBDFE2' :
+                      '#FFFFFF';
+}
+/*function getColor(indicateur) {
   return indicateur > 10 ? '#E62138' :
           indicateur > 5  ? '#E94153' :
           indicateur > 2  ? '#ED6070' :
@@ -75,8 +83,119 @@ function getColor(indicateur) {
           indicateur > 0.5   ? '#FBDFE2' :
                       '#FFFFFF';
 }
+*/
+function indicateur() {
+    $.ajax({
+        url: 'database.php',
+        type:'POST',
+        data: 'requete',
+        //async: false,
+        success: function(data){
 
-function style(feature) {
+          tabTxMotorisationMaison = CalculTxMotorisation(data);
+
+          /*function style(feature) {
+            return {
+                weight: 1,
+                opacity: 1,
+                color: 'grey',
+                dashArray: '3',
+                fillOpacity: 0.8,
+                fillColor: for(i in tabTxMotorisationMaison){
+                              if(tabTxMotorisationMaison[i][0]==feature.properties.codgeo){
+                                getColor(tabTxMotorisationMaison[i][1]);
+                              }
+                }
+
+            };
+          }*/
+
+          console.log(tabTxMotorisationMaison);
+
+          geojson_communes = L.geoJson(COMMUNES, {
+            style: style(tabTxMotorisationMaison),
+            onEachFeature: onEachFeature,
+
+            pointToLayer: function(feature,latlng){
+                label = String(feature.properties.libgeo)
+                return new L.CircleMarker(latlng, {
+                      radius: 1,
+                }).bindTooltip(label, {permanent: true, opacity: 0.7}).openTooltip();
+            }
+          });
+
+          geojson_iris = L.geoJson(IRIS, {
+            style: style(tabTxMotorisationMaison),
+            onEachFeature: onEachFeature
+          });
+
+          var unite_geographique = geojson_communes;
+
+          function onoff(element) {
+            if (unite_geographique == geojson_communes) {
+                unite_geographique = geojson_iris;
+                blabel = "Iris";
+            } else {
+                unite_geographique = geojson_communes;
+                blabel = "Communes";
+            }
+            var child=element.firstChild;
+            child.innerHTML=blabel;
+            map.removeLayer(layerUnitesGeog);
+            layerUnitesGeog.clearLayers();
+            unite_geographique.addTo(layerUnitesGeog);
+            layerUnitesGeog.addTo(map);
+          }
+          unite_geographique.addTo(layerUnitesGeog);
+          layerUnitesGeog.addTo(map);
+          
+            }
+
+       })
+
+};
+// Function TxMotorisationMaison
+// Function TxMotorisationAppartement
+// Function
+
+function CalculTxMotorisation(data){
+
+  var tabTxMotorisationMaison = [];
+  var tabTxMotorisationAppartement = [];
+  var tabTxMotorisationTsLog = [];
+  var tabTxMotorisationAutre = [];
+
+  for(i=0; i<data.length; i++){
+    tabTxMotorisationMaison[i]=[data[i][0],(data[i][7]+2*data[i][8]+3*data[i][9]+0.05*data[i][8])/data[i][10]];
+    tabTxMotorisationAppartement[i]=(data[i][2]+2*data[i][3]+3*data[i][4]+0.05*data[i][4])/data[i][5];
+    tabTxMotorisationTsLog[i]=(data[i][12]+2*data[i][13]+3*data[i][14]+0.05*data[i][14])/data[i][15];
+    tabTxMotorisationAutre[i]=(data[i][17]+2*data[i][18]+3*data[i][19]+0.05*data[i][19])/data[i][20];
+  }
+
+  return(tabTxMotorisationMaison);
+}
+
+function style(feature, tabTxMotorisation) {
+  console.log("Bonjour");
+  return {
+      weight: 1,
+      opacity: 1,
+      color: 'grey',
+      dashArray: '3',
+      fillOpacity: 0.8,
+      fillColor: function () {for(i in tabTxMotorisation){
+                    if(tabTxMotorisation[i][0]==Number(feature.properties.codgeo)){
+                      getColor(tabTxMotorisation[i][1]);
+
+                    }
+                  //console.log(typeof(feature.properties.codgeo), typeof(tabTxMotorisation[i][0]))
+
+                }
+      }
+
+  };
+}
+/*function style(feature) {
   return {
       weight: 1,
       opacity: 1,
@@ -86,6 +205,49 @@ function style(feature) {
       fillColor: (this.feature==geojson_iris) ? getColor(feature.properties.INSEE_COM) : getColor(feature.properties.indicateur)
   };
 }
+
+function indicateur() {
+    $.ajax({
+        url: 'database.php',
+        type:'POST',
+        data: 'requete',
+        async: false,
+        success: function(data){
+
+          var tabTxMotorisationMaison = [];
+          var tabTxMotorisationAppartement = [];
+          var tabTxMotorisationTsLog = [];
+          var tabTxMotorisationAutre = [];
+          for(i=0; i<data.length; i++){
+            tabTxMotorisationMaison[i]=[data[i][0],(data[i][7]+2*data[i][8]+3*data[i][9]+0.05*data[i][8])/data[i][10]];
+            tabTxMotorisationAppartement[i]=(data[i][2]+2*data[i][3]+3*data[i][4]+0.05*data[i][4])/data[i][5];
+            tabTxMotorisationTsLog[i]=(data[i][12]+2*data[i][13]+3*data[i][14]+0.05*data[i][14])/data[i][15];
+            tabTxMotorisationAutre[i]=(data[i][17]+2*data[i][18]+3*data[i][19]+0.05*data[i][19])/data[i][20];
+          }
+
+          function style(feature) {
+            return {
+                weight: 1,
+                opacity: 1,
+                color: 'grey',
+                dashArray: '3',
+                fillOpacity: 0.8,
+                fillColor: for(i in tabTxMotorisationMaison){
+                              if(tabTxMotorisationMaison[i][0]==feature.properties.codgeo){
+                                getColor(tabTxMotorisationMaison[i][1]);
+                              }
+                }
+
+            };
+          }
+
+            }
+
+       })
+
+};*/
+
+
 
 // Stylisation des géométries
 function highlightFeature(e) {
@@ -151,12 +313,12 @@ var geojson_communes;
 var geojson_iris;
 var nomsCommunesIris = [];
 
-geojson_communes = L.geoJson(COMMUNES, {
+/*geojson_communes = L.geoJson(COMMUNES, {
   style: style,
   onEachFeature: onEachFeature,
 
   pointToLayer: function(feature,latlng){
-      label = String(feature.properties.libgeo) 
+      label = String(feature.properties.libgeo)
       return new L.CircleMarker(latlng, {
             radius: 1,
       }).bindTooltip(label, {permanent: true, opacity: 0.7}).openTooltip();
@@ -186,7 +348,7 @@ function onoff(element) {
   layerUnitesGeog.addTo(map);
 }
 unite_geographique.addTo(layerUnitesGeog);
-layerUnitesGeog.addTo(map);
+layerUnitesGeog.addTo(map);*/
 
 // Sélection de l'année
 var Liste_Annee = document.getElementById("Liste_Annee");
@@ -206,10 +368,10 @@ function ValidationForm() {
 
 //Barre de recherche
 function formRecherche(){
-	
+
 	var form = document.getElementById("form_recherche");
 	var input = form.search;
-	
+
 	var list = document.createElement("ul");
 	list.className = "suggestions";
 	list.style.display = "none";
@@ -222,22 +384,22 @@ function formRecherche(){
 			list.style.display = "none";
 		    return;
 		}
-		
+
 		var suggestions = 0;
 		var frag = document.createDocumentFragment();
-		
+
 		for(var i = 0, c = nomsCommunesIris.length; i < c; i++){
 			if(new RegExp("^"+txt,"i").test(nomsCommunesIris[i])){
 				var word = document.createElement("li");
 				frag.appendChild(word);
 				word.innerHTML = nomsCommunesIris[i].replace(new RegExp("^("+txt+")","i"),"<strong>$1</strong>");
 				word.mot = nomsCommunesIris[i];
-				word.onmousedown = function(){					
+				word.onmousedown = function(){
 					input.focus();
 					input.value = this.mot;
 					list.style.display = "none";
 					return false;
-				};				
+				};
 				suggestions++;
 			}
 		}
@@ -248,18 +410,18 @@ function formRecherche(){
 			list.style.display = "block";
 		}
 		else {
-			list.style.display = "none";			
+			list.style.display = "none";
 		}
 	};
 
 	input.onblur = function(){
-		list.style.display = "none";	
+		list.style.display = "none";
 	};
 };
 
 function rechercher() {
   var nomGeom = document.getElementById("form_recherche").search.value;
-  unite_geographique.eachLayer(function (layer) {   
+  unite_geographique.eachLayer(function (layer) {
     if (layer.feature.properties.libgeo == nomGeom) {
       map.fitBounds(layer.getBounds());
     }
