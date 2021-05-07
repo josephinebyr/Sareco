@@ -22,6 +22,14 @@ TITRE DU SITE
     margin: 10px;
 }*/
 
+#container {
+  width: 100%;
+  height: 250px;
+  margin: 0;
+  padding: 0;
+}
+
+
 h1 {
     line-height: 115.2%;
     text-align: center;
@@ -50,7 +58,7 @@ BARRE DE RECHERCHE
 #form_recherche {width:358px;margin:0 auto}
 #form_recherche .search {
 	width:322px;height:33px;margin:4px;padding:0 13px;border:1px solid #cdcdcd;
-	color:#ccc;font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;font-size:14px;font-weight:bold;	
+	color:#ccc;font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;font-size:14px;font-weight:bold;
 	-moz-border-radius:2px;
 	-webkit-border-radius:2px;
 	border-radius:2px;
@@ -60,7 +68,7 @@ BARRE DE RECHERCHE
 }
 
 #form_recherche .search:focus {
-	color:#555;border-color:#c8c8c8;	
+	color:#555;border-color:#c8c8c8;
 	-moz-box-shadow:inset 0 1px 4px rgba(0,0,0,0.15), 4px 4px 0 #ececec,-4px 4px 0 #ececec,-4px -4px 0 #ececec,4px -4px 0 #ececec;
 	-webkit-box-shadow:inset 0 1px 4px rgba(0,0,0,0.15), 4px 4px 0 #ececec,-4px 4px 0 #ececec,-4px -4px 0 #ececec,4px -4px 0 #ececec;
 	box-shadow:inset 0 1px 4px rgba(0,0,0,0.15), 4px 4px 0 #ececec,-4px 4px 0 #ececec,-4px -4px 0 #ececec,4px -4px 0 #ececec
@@ -68,10 +76,10 @@ BARRE DE RECHERCHE
 
 #form_recherche .suggestions {
 	width:342px;position:relative;margin:-6px auto 0;padding:0;list-style-type:none;border:1px solid #d5d4d4;background:#fff;
-	font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;font-size:13px;color:#555;	
+	font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;font-size:13px;color:#555;
 	-moz-border-radius:2px;
 	-webkit-border-radius:2px;
-	border-radius:2px;	
+	border-radius:2px;
 	-moz-box-shadow:0 1px 3px rgba(0,0,0,0.1);
 	-webkit-box-shadow:0 1px 3px rgba(0,0,0,0.1);
 	box-shadow:0 1px 3px rgba(0,0,0,0.1)
@@ -153,7 +161,7 @@ h4{
     font-family: Segoe UI  (700);
     font-size: 20px;
     line-height: 109.2%;
-    color: #342626;  
+    color: #342626;
 }
 
 /**********
@@ -334,5 +342,3 @@ TAUX DE MOTORISATION DES MENAGES
     font-size: 15px;
 }
 */
-
-
