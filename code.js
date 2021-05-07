@@ -746,6 +746,10 @@ function displayNames() {
   }
 }
 
+//Actualisation de l'affichage des graphiques
+function refreshGraph() {
+  document.getElementById('container').innerHTML='';
+}
 
 
 
