@@ -79,12 +79,24 @@
             </form>
             
             <br/><div id="Taux_de_motorisation_des_menages">
-                <label>
+                <p id="titre">Taux de motorisation des ménages<!--<div class="arrow-down"></div>--></p>
+                <div onclick="application.showOverlay(event,'Liste_deroulante_logement',121,566)" id="Composant_logement" class="Composant_logement">
+                    <form action="">
+                        <select name="Liste_Logement" id="Liste_Logement">
+                            <!-- Faire le lien avec la bdd avec du php -->
+                            <option>Tout type de logement</option>
+                            <option>Maisons</option>
+                            <option>Appartements</option>
+                            <option>Autres</option>
+                        </select>
+                    </form>
+                </div>
+                <!--<label>
                     <input type="radio" name="indicateur" value="0" onclick="indicateur_1()">
                     Taux de motorisation des ménages
                 </label>
                 <br/><label><input type="radio" name="txMot" value="0" >Tous logements confondus</label>
-                <br/><label><input type="radio" name="txMot" value="0" >Par type de logements</label>
+                <br/><label><input type="radio" name="txMot" value="0" >Par type de logements</label>-->
                 <!--<button class="onoff" onclick="indicateur_1()">-----</button>-->
             </div>
             <!--<div onclick="application.showOverlay(event,'Carte_volution_par_anne',1430,291)" id="Evolution_du_taux_de_motorisation">
@@ -92,6 +104,33 @@
             </div>-->
 
             <br/><div id="Taux_dequipement_en_voiture">
+                <p id="titre">Taux d'équipement en voiture des ménages<!--<div class="arrow-down"></div>--></p>
+                <div onclick="application.showOverlay(event,'Liste_deroulante_equipement',121,566)" id="Composant_equipement" class="Composant_equipement">
+                    <form action="">
+                        <select name="Liste_equipement" id="Liste_equipement">
+                            <!-- Faire le lien avec la bdd avec du php -->
+                            <option>Aucunes voitures</option>
+                            <option>1 voiture</option>
+                            <option>2 voitures</option>
+                            <option>3 voitures ou plus</option>
+                            <option>Total des ménages</option>
+                        </select>
+                    </form>
+
+                </div>
+                <div onclick="application.showOverlay(event,'Liste_deroulante_logement',121,566)" id="Composant_logement" class="Composant_logement">
+                    <form action="">
+                        <select name="Liste_Logement" id="Liste_Logement">
+                            <!-- Faire le lien avec la bdd avec du php -->
+                            <option>Tout type de logement</option>
+                            <option>Maisons</option>
+                            <option>Appartements</option>
+                            <option>Autres</option>
+                        </select>
+                    </form>
+                </div>
+                </div>
+            <!--<div id="Taux_dequipement_en_voiture">
                 <label>
                     <input type="radio" name="indicateur" value="0" >
                     Taux d'équipement en voiture des ménages
@@ -99,11 +138,12 @@
                 <br/><label><input type="radio" name="equipVoiture" value="0" >Tous logements confondus</label>
                 <br/><label><input type="radio" name="equipVoiture" value="0" >Par type de logements</label>
 
-            </div>
+            </div>-->
             
             <br/><div id="Distribution_du_nombre_de_voit">
                 <!--<input type="checkbox" id="Distribution_du_nombre_de_voit" name="Distribution_du_nombre_de_voit">
                 <label for="Distribution_du_nombre_de_voit">Distribution du nombre de voitures à disposition des ménages</label>-->
+                <p id="titre">Distribution du nombre de voitures à disposition des ménages<!--<div class="arrow-down"></div>--></p>
                 <label>
                     <input type="radio" name="indicateur" value="0" >
                     Distribution du nombre de voitures à disposition des ménages
@@ -113,82 +153,17 @@
             <br/><div id="Taux_dequipements_en_garage_prive">
                 <!--<p>Taux d'équipements en garage privé des ménages (communes <br/>ou Iris)</p>
                 <button class="onoff" onclick="indicateur_2()"><div>TauxEquipement</div></button>-->
-                <label>
+                <p id="titre">Taux d'équipements en garage privé des ménages<!--<div class="arrow-down"></div>--></p>
+                <!--<label>
                     <input type="radio" name="indicateur" value="0" onclick="indicateur_2()">
                     Taux d'équipements en garage privé des ménages
-                </label>
-                <br/><label><input type="radio" name="garagePrive" value="0" >Communes</label>
-                <br/><label><input type="radio" name="garagePrive" value="0" >IRIS</label>
-            </div>
-
-            <br/><div id="Taux_de_venue_au_travail_des_actifs">
+                </label>-->
                 <label>
                     <input type="radio" name="indicateur" value="0" >
-                    Taux de venue au travail des actifs par modes de transport
+                    Taux d'équipements en garage privé des ménages
                 </label>
-                <br/>depuis la commune de résidence :
-            </div>
-
-            <div onclick="application.showOverlay(event,'Liste_deroulante_mode_transport',121,566)" id="Composant_Mode_transport_1" class="Composant_Mode_transport_1">
-                <!--<svg class="Mdtransport_1">
-                    <rect id="Mdtransport_1" rx="0" ry="0" x="0" y="0" width="219" height="38">
-                    </rect>
-                </svg>
-                <div id="Groupe_1">
-                    <div id="Mode_de_transport">
-                        <span>Mode de transport</span>
-                    </div>
-                </div>-->
-                <form action="">
-                    <select name="Liste_mode_transport_1" id="Liste_mode_transport_1">
-                        <!-- Faire le lien avec la bdd avec du php -->
-                        <option>Transport en commun</option>
-                        <option>Voiture</option>
-                        <option>Marche</option>
-                        <option>Deux roues</option>
-                        <option>Aucun</option>
-                    </select>
-                </form>
-            </div>
-
-            <div id="Depuis_la_commune_de_travail">depuis la commune de travail :</div>
-
-            <div onclick="application.showOverlay(event,'Liste_droulante_mode_transport',121,650)" id="Composant_Mode_transport_2" class="Composant_Mode_transport_2">
-                    <!--<svg class="Mdtransport_2">
-                    <rect id="Mdtransport_2" rx="0" ry="0" x="0" y="0" width="219" height="38">
-                    </rect>
-                </svg>
-                <div id="Mode_de_transport_">
-                    <span>Mode de transport</span>
-                </div>-->
-                <form action="">
-                    <select name="Liste_mode_transport_2" id="Liste_mode_transport_2">
-                        <!-- Faire le lien avec la bdd avec du php -->
-                        <option>Transport en commun</option>
-                        <option>Voiture</option>
-                        <option>Marche</option>
-                        <option>Deux roues</option>
-                        <option>Aucun</option>
-                    </select>
-                </form>
-            </div>
-
-            <div id="Evolution_des_taux_de_venue_au_travail_des_actifs">
-                <p>Evolution des taux de venue au travail des actifs</p>
-            </div>
-
-            <div id="checkbox_taux_de_venue">
-                <br/><label><input type="radio" name="txVenue" value="0" >Pour les transports en commun</label>
-                <br/><label><input type="radio" name="txVenue" value="0" >Pour la voiture</label>
-                <!--<div>
-                    <input type="checkbox" id="scales" name="scales">
-                    <label for="scales">Pour les transports en commun</label>
-                </div>
-
-                <div>
-                    <input type="checkbox" id="scales" name="scales">
-                    <label for="scales">Pour la voiture</label>
-                </div>-->
+                <!--<br/><label><input type="radio" name="garagePrive" value="0" >Communes</label>
+                <br/><label><input type="radio" name="garagePrive" value="0" >IRIS</label>-->
             </div>
 
             <button type="submit" id="btnValidationForm" onclick="ValidationForm()">
@@ -220,6 +195,9 @@
                 </form>
             </div>
 
+            <button type="submit" id="btnRafraichir" onclick="ValidationForm()">
+                <div id="arrow">&#8594;<div id="rafraichir">Rafraichir</div></div>
+            </button>
         </article>
 
         </section>
