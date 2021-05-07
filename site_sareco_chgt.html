@@ -7,6 +7,11 @@
 
     <title>Fenetre Sarecoscope</title>
 
+    <!-- Import js ajax -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <!-- Code leaflet -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
@@ -43,7 +48,7 @@
                 </div>
 
                 <div id="echelle">
-                    <button class="onoff" onclick="changeGeometries(this)">
+                    <button class="onoff" id="btnChangeGeom">
                         <div>Communes</div>
                     </button>
                 </div>
@@ -51,12 +56,12 @@
 
             <div>
                 <label onclick="displayNames()">
-                    <input type="checkbox" id="afficher_noms" name="afficher_noms">
+                    <input type="checkbox" id="afficher_noms" name="afficher_noms" checked>
                     Afficher les noms des communes
                 </label>
             </div>
 
-            <form method="GET" name="form" onsubmit = "return ValidationForm()">
+            <form method="GET" name="form" id="getAnnees" onsubmit = "return ValidationForm()">
                 <div class="choix_annee">
                     Choix de(s) l'année(s) :
                 </div>
@@ -79,7 +84,7 @@
             </form>
             
             <br/><div id="Taux_de_motorisation_des_menages">
-                <p id="titre">Taux de motorisation des ménages<!--<div class="arrow-down"></div>--></p>
+                <p id="titre" onclick="indicateur_1()">Taux de motorisation des ménages<!--<div class="arrow-down"></div>--></p>
                 <div onclick="application.showOverlay(event,'Liste_deroulante_logement',121,566)" id="Composant_logement" class="Composant_logement">
                     <form action="">
                         <select name="Liste_Logement" id="Liste_Logement">
@@ -150,7 +155,7 @@
                 </label>
             </div>
 
-            <br/><div id="Taux_dequipements_en_garage_prive">
+            <br/><div id="Taux_dequipements_en_garage_prive" onclick="indicateur_2()">
                 <!--<p>Taux d'équipements en garage privé des ménages (communes <br/>ou Iris)</p>
                 <button class="onoff" onclick="indicateur_2()"><div>TauxEquipement</div></button>-->
                 <p id="titre">Taux d'équipements en garage privé des ménages<!--<div class="arrow-down"></div>--></p>
@@ -190,8 +195,8 @@
             <div class="barre_de_recherche">
                 <form id="form_recherche" action="#" method="post">
                     <label for="barre_recherche">Barre de recherche</label>
-                    <input type="text" class="search" name="search" onkeyup="formRecherche()" autocomplete="off"/>
-                    <button id="barre_recherche_B" type='button' onclick="rechercher()">Rechercher</button>
+                    <input type="text" class="search" name="search" id="champ_recherche" autocomplete="off"/>
+                    <button id="barre_recherche_B" type='button' >Rechercher</button>
                 </form>
             </div>
 
