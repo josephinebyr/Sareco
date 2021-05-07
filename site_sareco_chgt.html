@@ -24,39 +24,35 @@
 </head>
 
 <body>
-<div id="Fenetre_Sarecoscope">
-	<header>
-        <img id="logo" src="Images/sarecoscope.png" >
-        <!--<h1>Sarecoscope</h1>-->
-    </header>
+    <div id="Fenetre_Sarecoscope">
+        <header>
+            <img id="logo" src="Images/sarecoscope.png" >
+            <!--<h1>Sarecoscope</h1>-->
+        </header>
 
-    <section>
+        <section>
 
-    <article>
-        <div id="Choix_des_indicateurs">
-            <h4>Choix des indicateurs</h4>
-        </div>
-
-
-        <div id="Taux_de_motorisation_des_menages">
-            <p>Taux de motorisation des ménages</p>
-              <button class="onoff" onclick="indicateur_1()"><div>TauxMotorisation</div></button>
-        </div>
-
-        <div id=inline>
-            <div id="Niveau">
-                <p>Niveau : </p>
+        <article>
+            <div id="Choix_des_indicateurs">
+                <h4>Choix des indicateurs</h4>
             </div>
 
-            <div id="echelle">
-                <button class="onoff" onclick="changeGeometries(this)"><div>Communes</div></button>
+            <div id=inline>
+                <div id="Niveau">
+                    Niveau : 
+                </div>
+
+                <div id="echelle">
+                    <button class="onoff" onclick="changeGeometries(this)">
+                        <div>Communes</div>
+                    </button>
+                </div>
             </div>
 
-        <form method="GET" name="form" onsubmit = "return ValidationForm()">
-            <!--<div class="choix_annee">
-                <p>Choix de(s) l'année(s) :</p>
-            </div>-->
-            <div id="annees">
+            <form method="GET" name="form" onsubmit = "return ValidationForm()">
+                <div class="choix_annee">
+                    Choix de(s) l'année(s) :
+                </div>
                 <form name="annees" action="">
                     <select name="Liste_Annee" id="Liste_Annee" multiple>
                         <option>2006</option>
@@ -73,128 +69,158 @@
                         <option>2017</option>
                     </select>
                 </form>
-            </div>
-        </form>
-    </div>
-	<!--<div onclick="application.showOverlay(event,'Carte_volution_par_anne',1430,291)" id="Evolution_du_taux_de_motorisation">
-		<span>- Evolution du taux de motorisation par année de 2006 à 2017</span>
-    </div>-->
-
-	<div id="Taux_de_venue_au_travail_des_actifs">
-		<p>Taux de venue au travail des actifs par mode<br/>Depuis la commune de résidence :</p>
-    </div>
-
-	<div onclick="application.showOverlay(event,'Liste_deroulante_mode_transport',121,566)" id="Composant_Mode_transport_1" class="Composant_Mode_transport_1">
-		<!--<svg class="Mdtransport_1">
-			<rect id="Mdtransport_1" rx="0" ry="0" x="0" y="0" width="219" height="38">
-			</rect>
-		</svg>
-		<div id="Groupe_1">
-			<div id="Mode_de_transport">
-				<span>Mode de transport</span>
-			</div>
-        </div>-->
-        <form action="">
-            <select name="Liste_mode_transport_1" id="Liste_mode_transport_1">
-                <!-- Faire le lien avec la bdd avec du php -->
-                <option>Transport en commun</option>
-                <option>Voiture</option>
-                <option>Marche</option>
-                <option>Deux roues</option>
-                <option>Aucun</option>
-            </select>
-        </form>
-    </div>
-
-	<div id="Depuis_la_commune_de_travail">
-		<p>Depuis la commune de travail :</p>
-    </div>
-
-	<div onclick="application.showOverlay(event,'Liste_droulante_mode_transport',121,650)" id="Composant_Mode_transport_2" class="Composant_Mode_transport_2">
-		<!--<svg class="Mdtransport_2">
-			<rect id="Mdtransport_2" rx="0" ry="0" x="0" y="0" width="219" height="38">
-			</rect>
-		</svg>
-		<div id="Mode_de_transport_">
-			<span>Mode de transport</span>
-        </div>-->
-        <form action="">
-            <select name="Liste_mode_transport_2" id="Liste_mode_transport_2">
-                <!-- Faire le lien avec la bdd avec du php -->
-                <option>Transport en commun</option>
-                <option>Voiture</option>
-                <option>Marche</option>
-                <option>Deux roues</option>
-                <option>Aucun</option>
-            </select>
-        </form>
-    </div>
-
-	<div id="Evolution_des_taux_de_venue_au_travail_des_actifs">
-		<p>Evolution des taux de venue au travail des actifs</p>
-    </div>
-
-    <div id="checkbox_taux_de_venue">
-        <div>
-            <input type="checkbox" id="scales" name="scales">
-            <label for="scales">Pour les transports en commun</label>
-        </div>
-
-        <div>
-            <input type="checkbox" id="scales" name="scales">
-            <label for="scales">Pour la voiture</label>
-        </div>
-    </div>
-    <p> </p>
-	<div>
-        <input type="checkbox" id="Distribution_du_nombre_de_voit" name="Distribution_du_nombre_de_voit">
-        <label for="Distribution_du_nombre_de_voit">Distribution du nombre de voitures à disposition des ménages</label>
-    </div>
-
-	<div id="Taux_dequipements_en_garage_prive">
-		<p>Taux d'équipements en garage privé des ménages (communes <br/>ou Iris)</p>
-    <button class="onoff" onclick="indicateur_2()"><div>TauxEquipement</div></button>
-    </div>
-
-    <div id="inline">
-
-    </div>
-
-    <button type="submit" id="btnValidationForm" onclick="ValidationForm()">
-        <div id="arrow">&#8594;<div id="valider">Valider</div></div>
-        <!--<div id="arrow" title="U+21A3: RIGHTWARDS ARROW WITH TAIL">↣</div>-->
-    </button>
-    </article>
-
-    <article>
-        <!--Prendre html Josephine et JS associé-->
-        <!--<svg class="carte_interactive_france">
-            <rect id="carte_interactive_france" rx="0" ry="0" x="0" y="0" width="698" height="782">
-            </rect>
-        </svg>-->
-        <!--<svg class="carte_interactive_france">-->
-            <rect id="carte_interactive_france" rx="0" ry="0" x="0" y="0" width="698" height="782">
-            </rect>
-        </svg>
-        <div id="carte_interactive_france"></div>
-    </article>
-
-    <article>
-
-        <div class="barre_de_recherche">
-            <form id="form_recherche" action="#" method="post">
-                <label for="barre_recherche">Barre de recherche</label>
-                <input type="text" class="search" name="search" onkeyup="formRecherche()" autocomplete="off"/>
-                <button id="barre_recherche_B" type='button' onclick="rechercher()">Rechercher</button>
             </form>
-            <div id="container">
-        </div>
-    </article>
+            
+            <br/><div id="Taux_de_motorisation_des_menages">
+                <label>
+                    <input type="radio" name="indicateur" value="0" onclick="indicateur_1()">
+                    Taux de motorisation des ménages
+                </label>
+                <br/><label><input type="radio" name="txMot" value="0" >Tous logements confondus</label>
+                <br/><label><input type="radio" name="txMot" value="0" >Par type de logements</label>
+                <!--<button class="onoff" onclick="indicateur_1()">-----</button>-->
+            </div>
+            <!--<div onclick="application.showOverlay(event,'Carte_volution_par_anne',1430,291)" id="Evolution_du_taux_de_motorisation">
+                <span>- Evolution du taux de motorisation par année de 2006 à 2017</span>
+            </div>-->
 
-    </section>
+            <br/><div id="Taux_dequipement_en_voiture">
+                <label>
+                    <input type="radio" name="indicateur" value="0" >
+                    Taux d'équipement en voiture des ménages
+                </label>
+                <br/><label><input type="radio" name="equipVoiture" value="0" >Tous logements confondus</label>
+                <br/><label><input type="radio" name="equipVoiture" value="0" >Par type de logements</label>
 
-</div>
-<script src="france.js"></script>
-<script src="code.js"></script>
+            </div>
+            
+            <br/><div id="Distribution_du_nombre_de_voit">
+                <!--<input type="checkbox" id="Distribution_du_nombre_de_voit" name="Distribution_du_nombre_de_voit">
+                <label for="Distribution_du_nombre_de_voit">Distribution du nombre de voitures à disposition des ménages</label>-->
+                <label>
+                    <input type="radio" name="indicateur" value="0" >
+                    Distribution du nombre de voitures à disposition des ménages
+                </label>
+            </div>
+
+            <br/><div id="Taux_dequipements_en_garage_prive">
+                <!--<p>Taux d'équipements en garage privé des ménages (communes <br/>ou Iris)</p>
+                <button class="onoff" onclick="indicateur_2()"><div>TauxEquipement</div></button>-->
+                <label>
+                    <input type="radio" name="indicateur" value="0" onclick="indicateur_2()">
+                    Taux d'équipements en garage privé des ménages
+                </label>
+                <br/><label><input type="radio" name="garagePrive" value="0" >Communes</label>
+                <br/><label><input type="radio" name="garagePrive" value="0" >IRIS</label>
+            </div>
+
+            <br/><div id="Taux_de_venue_au_travail_des_actifs">
+                <label>
+                    <input type="radio" name="indicateur" value="0" >
+                    Taux de venue au travail des actifs par modes de transport
+                </label>
+                <br/>depuis la commune de résidence :
+            </div>
+
+            <div onclick="application.showOverlay(event,'Liste_deroulante_mode_transport',121,566)" id="Composant_Mode_transport_1" class="Composant_Mode_transport_1">
+                <!--<svg class="Mdtransport_1">
+                    <rect id="Mdtransport_1" rx="0" ry="0" x="0" y="0" width="219" height="38">
+                    </rect>
+                </svg>
+                <div id="Groupe_1">
+                    <div id="Mode_de_transport">
+                        <span>Mode de transport</span>
+                    </div>
+                </div>-->
+                <form action="">
+                    <select name="Liste_mode_transport_1" id="Liste_mode_transport_1">
+                        <!-- Faire le lien avec la bdd avec du php -->
+                        <option>Transport en commun</option>
+                        <option>Voiture</option>
+                        <option>Marche</option>
+                        <option>Deux roues</option>
+                        <option>Aucun</option>
+                    </select>
+                </form>
+            </div>
+
+            <div id="Depuis_la_commune_de_travail">depuis la commune de travail :</div>
+
+            <div onclick="application.showOverlay(event,'Liste_droulante_mode_transport',121,650)" id="Composant_Mode_transport_2" class="Composant_Mode_transport_2">
+                    <!--<svg class="Mdtransport_2">
+                    <rect id="Mdtransport_2" rx="0" ry="0" x="0" y="0" width="219" height="38">
+                    </rect>
+                </svg>
+                <div id="Mode_de_transport_">
+                    <span>Mode de transport</span>
+                </div>-->
+                <form action="">
+                    <select name="Liste_mode_transport_2" id="Liste_mode_transport_2">
+                        <!-- Faire le lien avec la bdd avec du php -->
+                        <option>Transport en commun</option>
+                        <option>Voiture</option>
+                        <option>Marche</option>
+                        <option>Deux roues</option>
+                        <option>Aucun</option>
+                    </select>
+                </form>
+            </div>
+
+            <div id="Evolution_des_taux_de_venue_au_travail_des_actifs">
+                <p>Evolution des taux de venue au travail des actifs</p>
+            </div>
+
+            <div id="checkbox_taux_de_venue">
+                <br/><label><input type="radio" name="txVenue" value="0" >Pour les transports en commun</label>
+                <br/><label><input type="radio" name="txVenue" value="0" >Pour la voiture</label>
+                <!--<div>
+                    <input type="checkbox" id="scales" name="scales">
+                    <label for="scales">Pour les transports en commun</label>
+                </div>
+
+                <div>
+                    <input type="checkbox" id="scales" name="scales">
+                    <label for="scales">Pour la voiture</label>
+                </div>-->
+            </div>
+
+            <button type="submit" id="btnValidationForm" onclick="ValidationForm()">
+                <div id="arrow">&#8594;<div id="valider">Valider</div></div>
+                <!--<div id="arrow" title="U+21A3: RIGHTWARDS ARROW WITH TAIL">↣</div>-->
+            </button>
+        </article>
+
+        <article>
+            <!--Prendre html Josephine et JS associé-->
+            <!--<svg class="carte_interactive_france">
+                <rect id="carte_interactive_france" rx="0" ry="0" x="0" y="0" width="698" height="782">
+                </rect>
+            </svg>-->
+            <!--<svg class="carte_interactive_france">
+            <rect id="carte_interactive_france" rx="0" ry="0" x="0" y="0" width="698" height="782">
+            </rect>
+            </svg>-->
+            <div id="carte_interactive_france"></div>
+        </article>
+
+        <article>
+
+            <div class="barre_de_recherche">
+                <form id="form_recherche" action="#" method="post">
+                    <label for="barre_recherche">Barre de recherche</label>
+                    <input type="text" class="search" name="search" onkeyup="formRecherche()" autocomplete="off"/>
+                    <button id="barre_recherche_B" type='button' onclick="rechercher()">Rechercher</button>
+                </form>
+            </div>
+
+        </article>
+
+        </section>
+    </div>
+
+    
+    <!--<script src="france.js"></script>
+    <script src="iris.js"></script>
+    <script src="code.js"></script>-->
 </body>
 </html>
