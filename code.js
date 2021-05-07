@@ -125,7 +125,7 @@ function select(e) {
 
 // Actions sur les géométries
 function onEachFeature(feature, layer) {
-  
+
   layer.on({
       //mouseover: highlightFeature,
       //mouseout: resetHighlight,
@@ -137,13 +137,13 @@ function onEachFeature(feature, layer) {
 }
 
 // Affichage des noms de villes qu'à partir d'un certain zoom
-/*map.on("zoomend", function(e){
+map.on("zoomend", function(e){
   if(map.getZoom() < 11) {
       map.removeLayer(layerNomCommunes);
   }else  {
     layerNomCommunes.addTo(map);
   }
-});*/
+});
 
 // Importation des fichiers geojson pour afficher les limites de communes et IRIS
 var geojson_communes;
@@ -155,7 +155,7 @@ geojson_communes = L.geoJson(COMMUNES, {
   onEachFeature: onEachFeature,
 
   pointToLayer: function(feature,latlng){
-      label = String(feature.properties.libgeo) 
+      label = String(feature.properties.libgeo)
       return new L.CircleMarker(latlng, {
             radius: 1,
       }).bindTooltip(label, {permanent: true, opacity: 0.7}).openTooltip();
@@ -237,10 +237,10 @@ function displayIndicators() {
 }
 //Barre de recherche
 function formRecherche(){
-	
+
 	var form = document.getElementById("form_recherche");
 	var input = form.search;
-	
+
 	var list = document.createElement("ul");
 	list.className = "suggestions";
 	list.style.display = "none";
@@ -253,22 +253,22 @@ function formRecherche(){
 			list.style.display = "none";
 		    return;
 		}
-		
+
 		var suggestions = 0;
 		var frag = document.createDocumentFragment();
-		
+
 		for(var i = 0, c = nomsCommunesIris.length; i < c; i++){
 			if(new RegExp("^"+txt,"i").test(nomsCommunesIris[i])){
 				var word = document.createElement("li");
 				frag.appendChild(word);
 				word.innerHTML = nomsCommunesIris[i].replace(new RegExp("^("+txt+")","i"),"<strong>$1</strong>");
 				word.mot = nomsCommunesIris[i];
-				word.onmousedown = function(){					
+				word.onmousedown = function(){
 					input.focus();
 					input.value = this.mot;
 					list.style.display = "none";
 					return false;
-				};				
+				};
 				suggestions++;
 			}
 		}
@@ -279,18 +279,18 @@ function formRecherche(){
 			list.style.display = "block";
 		}
 		else {
-			list.style.display = "none";			
+			list.style.display = "none";
 		}
 	};
 
 	input.onblur = function(){
-		list.style.display = "none";	
+		list.style.display = "none";
 	};
 };
 
 function rechercher() {
   var nomRecherche = document.getElementById("form_recherche").search.value;
-  unite_geographique.eachLayer(function (layer) { 
+  unite_geographique.eachLayer(function (layer) {
     nomGeom = (unite_geographique==geojson_communes) ? layer.feature.properties.libgeo : layer.feature.properties.NOM_COM;
     if (nomGeom==nomRecherche) {
       map.fitBounds(layer.getBounds());
