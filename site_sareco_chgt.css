@@ -101,6 +101,7 @@ STYLE
 #titre{
     color: #342626;
     background: #F2F2F2;
+    cursor: pointer;
 }
 
 label{
@@ -124,7 +125,6 @@ label{
     border: solid;
     border-color: #E11616;
     background: white;
-    margin: 3%;
     cursor: pointer;
 }
 
