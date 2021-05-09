@@ -46,9 +46,13 @@
             <div id="parametres">
                 <div id="niveau">
                     Niveau : 
-                    <button id="btnChangeGeom">
-                        <div>COMMUNES</div>
-                    </button>
+                    <form id="btnChangeGeom">
+                        <select name="echelle" id="echelle">
+                            <option>Communes</option>
+                            <option>IRIS</option>
+                        </select>
+                        
+                    </form>
                 </div>
             
 
@@ -128,10 +132,10 @@
                         <div id="3voitures">3 voitures</div>
                     </div>
                     <div id="Composant_logement" style="display: none;">
-                        <div onclick="indicateur_2()">Tout type de logement</div>
-                        <div onclick="indicateur_2()">Maisons</div>
-                        <div onclick="indicateur_2()">Appartements</div>
-                        <div onclick="indicateur_2()">Autres</div>
+                        <div id="tslogement">Tout type de logement</div>
+                        <div id="maison">Maisons</div>
+                        <div id="appartement">Appartements</div>
+                        <div id="autre">Autres</div>
                     </div>
                 </div>
             </div>
