@@ -53,7 +53,7 @@ map.setView([48.856614, 2.3522219], 10);  // Zoom sur Paris
 // Couleur dépendant de la valeur de l'indicateur
 function getColor(indicateur) {
   return indicateur > 3.05 ? '#E62138' :
-          indicateur > 2  ? '#E62138' :
+          indicateur > 2  ? '#FF9900' :
           indicateur > 1.5  ? '#FFCC33' :
           indicateur > 1  ? '#FFFF66' :
           indicateur > 0.5   ? '#33FF66' :
@@ -63,15 +63,20 @@ function getColor(indicateur) {
 var buttonstate_m=0;
 var buttonstate_e=0;
 
-function indicateur_1() {
+//var ann = document.getElementById("Liste_Annee").options[listAnnees.selectedIndex].text;
+//var annee = "2006";
+
+function indicateur_1(logement) {
 
   if(buttonstate_m==0){
     $.ajax({
       url: 'database.php',
       type:'POST',
-      data: 'requete',
+      data: 'requete=requete'+'&annee='+document.getElementById("Liste_Annee").options[document.getElementById("Liste_Annee").selectedIndex].text+'&echelle='+document.getElementById("echelle").options[document.getElementById("echelle").selectedIndex].text,
       //async: false,
       success: function(data){
+
+				console.log(data);
 
         buttonstate_m=1;
 
@@ -89,13 +94,13 @@ function indicateur_1() {
 
         info.addTo(map);
 
-        tabTxMotorisationTsLog = CalculTxMotorisation(data);
-        tabTxEquipementTsLog  = CalculTxEquipement(data);
+        tabTxMotorisation = CalculTxMotorisation(data, logement);
+        tabTxEquipement  = CalculTxEquipement(data, logement);
 
         var nomsCommunesIris = [];
         var geojson_communes;
         var geojson_iris;
-        
+
         geojson_communes = L.geoJson(COMMUNES,{
           onEachFeature: onEachFeature,
         }).addTo(map);
@@ -113,7 +118,8 @@ function indicateur_1() {
           }
         });*/
 
-        
+				// Affichage de la source des données (INSEE)
+        map.attributionControl.addAttribution('Données <a href="http://INSEE.fr/">INSEE</a>');
         //Légende en bas à droite
 
         legend.onAdd = function (map) {
@@ -216,11 +222,11 @@ function indicateur_1() {
         // set scale for the chart, this scale will be used in all scale dependent entries such axes, grids, etc
         chart.yScale(linScale);
 
-        for(i in tabTxMotorisationTsLog){
-          if(tabTxMotorisationTsLog[i][0]==e.target.feature.properties.libgeo){
-                      tab.push(['Motorisation',tabTxMotorisationTsLog[i][1]]);
-                      tab.push(['Equipement',tabTxEquipementTsLog[i][1]]);
-                      nomcom = tabTxMotorisationTsLog[i][0];
+        for(i in tabTxMotorisation){
+          if(tabTxMotorisation[i][0]==e.target.feature.properties.libgeo){
+                      tab.push(['Motorisation',tabTxMotorisation[i][1]]);
+                      tab.push(['Equipement',tabTxEquipement[i][1]]);
+                      nomcom = tabTxMotorisation[i][0];
                       chart.title('Indicateurs pour la commune '+nomcom);
                     }
 
@@ -259,7 +265,7 @@ function indicateur_1() {
         chart.container('container');
         // initiate chart drawing
         chart.draw();
-        
+
         //Sauvegarde en png
         anychart.exports.server("http://localhost:2000");
         document.getElementById('btnSavePNG').addEventListener('click', () => {
@@ -267,7 +273,7 @@ function indicateur_1() {
             "quality": 0.5,
             "filename": "TxMotorisation_" + e.target.feature.properties.libgeo});
           });
-        
+
         //Sauvegarde en xlsx
 
         document.getElementById('btnSaveXlsx').addEventListener('click', () => {
@@ -278,10 +284,10 @@ function indicateur_1() {
             'ignoreFirstRow': false
           });
           console.log(csvData);
-          
+
         });
       });
-    
+
 
   }
 
@@ -349,9 +355,9 @@ function indicateur_1() {
 
         function getIndicateur(feature) {
 
-          for(i in tabTxMotorisationTsLog){
-            if(tabTxMotorisationTsLog[i][0]==feature.properties.libgeo){
-                        return((tabTxMotorisationTsLog[i][1]).toFixed(2));
+          for(i in tabTxMotorisation){
+            if(tabTxMotorisation[i][0]==feature.properties.libgeo){
+                        return((tabTxMotorisation[i][1]).toFixed(2));
 
                       }
 
@@ -431,7 +437,7 @@ function indicateur_1() {
           return annees
           return annees
         });*/
-        
+
         var listAnnees = document.getElementById("Liste_Annee");
         var annee = listAnnees.options[listAnnees.selectedIndex].text;
 
@@ -447,27 +453,19 @@ function indicateur_1() {
 
 };
 
-function indicateur_2(nbVoiture) {
+function indicateur_2(nbvoiture, logement) {
+
   if(buttonstate_e==0){
     $.ajax({
       url: 'database.php',
       type:'POST',
-      data: 'requete',
+      data: 'requete=requete'+'&annee='+document.getElementById("Liste_Annee").options[document.getElementById("Liste_Annee").selectedIndex].text+'&echelle='+document.getElementById("echelle").options[document.getElementById("echelle").selectedIndex].text,
       //async: false,
       success: function(data){
 
+				console.log(data);
+
         buttonstate_e=1;
-        buttonstate_e=1;
-
-        //Actualisation valeur de l'année
-        var listAnnees = document.getElementById("Liste_Annee");
-        var annee = listAnnees.options[listAnnees.selectedIndex].text;
-        console.log(annee);
-
-        //Actualisation du nombre de voitures
-        console.log(nbVoiture);
-        
-
 
         // Panneau d'affichage des informations en haut à droite de la carte
         info.onAdd = function (map) {
@@ -478,17 +476,63 @@ function indicateur_2(nbVoiture) {
 
         info.update = function (props) {
           this._div.innerHTML = (props ? '<b>' + props.libgeo + '</b>' : 'Survolez une commune');
+          this._div.style.color = "white";
         };
 
         info.addTo(map);
 
-        tabTxMotorisationTsLog = CalculTxMotorisation(data);
-        tabTxEquipementTsLog  = CalculTxEquipement(data);
+        tabTxMotorisation = CalculTxMotorisation(data, logement);
+				if(nbvoiture=="4"){
+					tabTxEquipement  = CalculTxEquipement(data, logement);
+				} else {
+					tabTxEquipement  = CalculTxEquipement_nbvoiture(data, logement, nbvoiture);
+				};
 
-        var geojson_communes;
         var nomsCommunesIris = [];
+        var geojson_communes;
+        var geojson_iris;
 
-        geojson_communes = L.geoJson(COMMUNES,{onEachFeature: onEachFeature}).addTo(map);
+        geojson_communes = L.geoJson(COMMUNES,{
+          onEachFeature: onEachFeature,
+        }).addTo(map);
+
+        geojson_iris = L.geoJson(IRIS, {
+          onEachFeature: onEachFeature
+        });
+
+        // Affichage des noms de villes qu'à partir d'un certain zoom
+        /*map.on("zoomend", function(e){
+          if(map.getZoom() < 11) {
+              map.removeLayer(layerNomCommunes);
+          }else  {
+            layerNomCommunes.addTo(map);
+          }
+        });*/
+
+				// Affichage de la source des données (INSEE)
+        map.attributionControl.addAttribution('Données <a href="http://INSEE.fr/">INSEE</a>');
+        //Légende en bas à droite
+
+        legend.onAdd = function (map) {
+
+          var div = L.DomUtil.create('div', 'info legend'),
+              grades = [0.5, 1, 1.5, 2, 2.5, 3.05],
+              labels = [],
+              from, to;
+
+          for (var i = 0; i < grades.length; i++) {
+              from = grades[i];
+              to = grades[i + 1];
+              labels.push(
+                  '<i style="background:' + getColor(from + 1) + '"></i> ' +
+                  from + (to ? '&ndash;' + to : '+'));
+          }
+
+          div.innerHTML = 'Indicateur<br>' + labels.join('<br>');
+          return div;
+        };
+
+        legend.addTo(map);
 
         // Stylisation des géométries
         function highlightFeature(e) {
@@ -546,7 +590,7 @@ function indicateur_2(nbVoiture) {
         var chart = anychart.column();
 
         // set chart padding
-       // chart.padding([10, 20, 5, 20]);
+        // chart.padding([10, 20, 5, 20]);
 
         // turn on chart animation
         chart.animation(true);
@@ -569,11 +613,11 @@ function indicateur_2(nbVoiture) {
         // set scale for the chart, this scale will be used in all scale dependent entries such axes, grids, etc
         chart.yScale(linScale);
 
-        for(i in tabTxMotorisationTsLog){
-          if(tabTxMotorisationTsLog[i][0]==e.target.feature.properties.libgeo){
-                      tab.push(['Motorisation',tabTxMotorisationTsLog[i][1]]);
-                      tab.push(['Equipement',tabTxEquipementTsLog[i][1]]);
-                      nomcom = tabTxMotorisationTsLog[i][0];
+        for(i in tabTxMotorisation){
+          if(tabTxMotorisation[i][0]==e.target.feature.properties.libgeo){
+                      tab.push(['Motorisation',tabTxMotorisation[i][1]]);
+                      tab.push(['Equipement',tabTxEquipement[i][1]]);
+                      nomcom = tabTxMotorisation[i][0];
                       chart.title('Indicateurs pour la commune '+nomcom);
                     }
 
@@ -612,28 +656,36 @@ function indicateur_2(nbVoiture) {
         chart.container('container');
         // initiate chart drawing
         chart.draw();
-        chart.draw();
 
         //Sauvegarde en png
         anychart.exports.server("http://localhost:2000");
         document.getElementById('btnSavePNG').addEventListener('click', () => {
           chart.saveAsPng({
-        "quality": 0.5,
-        "filename": "TauxMotorisation_" + e.target.feature.properties.libgeo});
-        });
-        
-        //Sauvegarde en xlsx
-        document.getElementById('btnSaveXlsx').addEventListener('click', () => {
-          //chart.saveAsXlsx('default', "excel");
-          chart.saveAsCsv("raw",
-          {"rowsSeparator": "\n",
-          "columnsSeparator": ","});
-        });
+            "quality": 0.5,
+            "filename": "TxMotorisation_" + e.target.feature.properties.libgeo});
+          });
 
-  })};
+        //Sauvegarde en xlsx
+
+        document.getElementById('btnSaveXlsx').addEventListener('click', () => {
+          //chart.saveAsXlsx();
+          var csvData = chart.toCsv('default', {
+            'rowsSeparator': '\n',
+            'columnsSeparator': ',',
+            'ignoreFirstRow': false
+          });
+          console.log(csvData);
+
+        });
+      });
+
+
+  }
 
         var unite_geographique = geojson_communes;
-        document.getElementById('btnChangeGeom').addEventListener('click', function changeGeometries(element) {
+
+        var btnChangeGeom = document.getElementById('btnChangeGeom')
+        btnChangeGeom.addEventListener('click', function changeGeometries(btnChangeGeom) {
           if (unite_geographique == geojson_communes) {
               unite_geographique = geojson_iris;
               blabel = "Iris";
@@ -642,8 +694,9 @@ function indicateur_2(nbVoiture) {
               blabel = "Communes";
           }
 
-          var child=element.firstChild;
-          child.innerHTML=blabel;
+          /*var child=element.firstChild;
+          child.innerHTML=blabel;*/
+          document.getElementById('blabel').innerHTML = blabel;
           map.removeLayer(layerUnitesGeog);
           layerUnitesGeog.clearLayers();
           unite_geographique.addTo(layerUnitesGeog);
@@ -653,23 +706,24 @@ function indicateur_2(nbVoiture) {
         function displayGeometries() {
           layerUnitesGeog.clearLayers();
           unite_geographique.eachLayer(function(layer) {
-            var label = L.marker(layer.getBounds().getCenter(), {
-              icon: L.divIcon({
-                className: 'label',
-                html: (unite_geographique==geojson_communes) ?
-                layer.feature.properties.libgeo +
-                    '<br>' + getIndicateur(layer.feature) + '</br>' : layer.feature.properties.NOM_COM,
-              })
-            });
+
               if (map.getBounds().overlaps(layer.getBounds())) {
+                var label = L.marker(layer.getBounds().getCenter(), {
+                  icon: L.divIcon({
+                    className: 'label',
+                    html: (unite_geographique==geojson_communes) ? layer.feature.properties.libgeo +'<br>' + getIndicateur(layer.feature) + '</br>' : layer.feature.properties.NOM_COM,
+                  })
+                });
                 //onEachFeature(layer.feature, layer);
                 layer.setStyle(style(layer.feature));
                 layer.addTo(layerUnitesGeog);
                 layerUnitesGeog.addTo(map);
                 label.addTo(layerNomCommunes);
                 map.on("zoomend", function(e){
-                if(map.getZoom() > 10){layerNomCommunes.addTo(map);}
-                else {map.removeLayer(layerNomCommunes);}})
+                if(map.getZoom() > 10){
+                  layerNomCommunes.addTo(map);}
+                else {
+                  map.removeLayer(layerNomCommunes);}})
               };
             });
         }
@@ -692,14 +746,15 @@ function indicateur_2(nbVoiture) {
 
         function getIndicateur(feature) {
 
-          for(i in tabTxEquipementTsLog){
-            if(tabTxEquipementTsLog[i][0]==feature.properties.libgeo){
-                        return((tabTxEquipementTsLog[i][1]).toFixed(2));
+          for(i in tabTxEquipement){
+            if(tabTxEquipement[i][0]==feature.properties.libgeo){
+                        return((tabTxEquipement[i][1]).toFixed(2));
 
                       }
 
                   }
         }
+
         //Barre de recherche
         document.getElementById('champ_recherche').addEventListener('click', function formRecherche(){
           var form = document.getElementById("form_recherche");
@@ -761,6 +816,23 @@ function indicateur_2(nbVoiture) {
           });
         });
 
+        /*var annees = []
+        document.getElementById('Liste_Annee').addEventListener('click', function ValidationForm() {
+          annee = document.forms.form.Liste_Annee.options;
+          for (i=0; i<document.forms.form.Liste_Annee.options.length; i++) {
+            if (document.forms.form.Liste_Annee.options[i].selected ) {
+              annees.push(document.forms.form.Liste_Annee.options[i].text);
+              console.log(annees);
+            }
+          }
+          return annees
+          return annees
+        });*/
+
+        var listAnnees = document.getElementById("Liste_Annee");
+        var annee = listAnnees.options[listAnnees.selectedIndex].text;
+
+
           }
 
      })} else {
@@ -772,43 +844,217 @@ function indicateur_2(nbVoiture) {
 
 };
 
-
 function indicateur_3() {
   console.log("indicateur 3");
 }
 
-function CalculTxMotorisation(data){
+function CalculTxMotorisation(data, logement){
 
-  //var tabTxMotorisationMaison = [];
-  //var tabTxMotorisationAppartement = [];
-  var tabTxMotorisationTsLog = [];
-  //var tabTxMotorisationAutre = [];
+	var tabTxMotorisation = [];
 
-  for(i=0; i<data.length; i++){
-    //tabTxMotorisationMaison[i]=[data[i][21],(data[i][7]+2*data[i][8]+3*data[i][9]+0.05*data[i][8])/data[i][10]];
-    //tabTxMotorisationAppartement[i]=[data[i][21],(data[i][2]+2*data[i][3]+3*data[i][4]+0.05*data[i][4])/data[i][5]];
-    tabTxMotorisationTsLog[i]=[data[i][21],(data[i][12]+2*data[i][13]+3*data[i][14]+0.05*data[i][14])/data[i][15]];
-    //tabTxMotorisationAutre[i]=(data[i][17]+2*data[i][18]+3*data[i][19]+0.05*data[i][19])/data[i][20];
-  }
+	if(logement=="maison"){
 
-  return(tabTxMotorisationTsLog);
+		for(i=0; i<data.length; i++){
+			tabTxMotorisation[i]=[data[i][21],(data[i][7]+2*data[i][8]+3*data[i][9]+0.05*data[i][8])/data[i][10]];
+		}
+
+		return(tabTxMotorisation);
+
+	} if(logement=="tslogement"){
+
+		for(i=0; i<data.length; i++){
+			tabTxMotorisation[i]=[data[i][21],(data[i][12]+2*data[i][13]+3*data[i][14]+0.05*data[i][14])/data[i][15]];
+		}
+
+		return(tabTxMotorisation);
+
+	} if(logement=="appartement"){
+
+		for(i=0; i<data.length; i++){
+			tabTxMotorisation[i]=[data[i][21],(data[i][2]+2*data[i][3]+3*data[i][4]+0.05*data[i][4])/data[i][5]];
+		}
+
+		return(tabTxMotorisation);
+
+	} if(logement=="autre"){
+
+		for(i=0; i<data.length; i++){
+			tabTxMotorisation[i]=[data[i][21],(data[i][17]+2*data[i][18]+3*data[i][19]+0.05*data[i][19])/data[i][20]];
+		}
+
+		return(tabTxMotorisation);
+
+	}
 }
 
-function CalculTxEquipement(data){
+function CalculTxEquipement(data, logement){
 
-  //var tabTxEquipementMaison = [];
-  //var tabTxEquipementAppartement = [];
-  var tabTxEquipementTsLog = [];
-  //var tabTxEquipementAutre = [];
+	var tabTxEquipement = [];
 
-  for(i=0; i<data.length; i++){
-    tabTxEquipementTsLog [i] = [data[i][21],(data[i][2]+data[i][3]+data[i][4])/data[i][5]];
-    //tabTxEquipementMaison[i]= [data[i][21],(data[i][7]+data[i][8]+data[i][9])/data[i][10]];
-    //tabTxEquipementAppartement[i]= [data[i][21],(data[i][12]+data[i][13]+data[i][14])/data[i][15]];
-    //tabTxEquipementAutre[i]= [data[i][21],(data[i][17]+data[i][18]+data[i][19])/data[i][20]];
-  }
+	if(logement=="maison"){
 
-  return(tabTxEquipementTsLog);
+		for(i=0; i<data.length; i++){
+			tabTxEquipement[i]= [data[i][21],(data[i][7]+data[i][8]+data[i][9])/data[i][10]];
+		}
+
+		return(tabTxEquipement);
+
+	} if(logement=="tslogement"){
+
+		for(i=0; i<data.length; i++){
+			tabTxEquipement[i]=[data[i][21],(data[i][2]+data[i][3]+data[i][4])/data[i][5]];
+		}
+
+		return(tabTxEquipement);
+
+	} if(logement=="appartement"){
+
+		for(i=0; i<data.length; i++){
+			tabTxEquipement[i]=[data[i][21],(data[i][12]+data[i][13]+data[i][14])/data[i][15]];
+		}
+
+		return(tabTxEquipement);
+
+	} if(logement=="autre"){
+
+		for(i=0; i<data.length; i++){
+			tabTxEquipement[i]=[data[i][21],(data[i][17]+data[i][18]+data[i][19])/data[i][20]];
+		}
+
+		return(tabTxEquipement);
+
+	}
+
+}
+
+function CalculTxEquipement_nbvoiture(data, logement, nbvoiture){
+
+	var tabTxEquipement = [];
+
+	if(logement=="maison"){
+
+		if(nbvoiture=="0"){
+
+			for(i=0; i<data.length; i++){
+				tabTxEquipement[i]= [data[i][21],data[i][6]/data[i][10]];
+			}
+
+		} if(nbvoiture=="1"){
+
+			for(i=0; i<data.length; i++){
+				tabTxEquipement[i]= [data[i][21],data[i][7]/data[i][10]];
+			}
+
+		} if(nbvoiture=="2"){
+
+			for(i=0; i<data.length; i++){
+				tabTxEquipement[i]= [data[i][21],data[i][8]/data[i][10]];
+			}
+
+		} if(nbvoiture=="3"){
+
+			for(i=0; i<data.length; i++){
+				tabTxEquipement[i]= [data[i][21],data[i][9]/data[i][10]];
+			}
+
+		}
+
+		return(tabTxEquipement);
+
+	} if(logement=="tslogement"){
+
+		if(nbvoiture=="0"){
+
+			for(i=0; i<data.length; i++){
+				tabTxEquipement[i]= [data[i][21],data[i][1]/data[i][5]];
+			}
+
+		} if(nbvoiture=="1"){
+
+			for(i=0; i<data.length; i++){
+				tabTxEquipement[i]= [data[i][21],data[i][2]/data[i][5]];
+			}
+
+		} if(nbvoiture=="2"){
+
+			for(i=0; i<data.length; i++){
+				tabTxEquipement[i]= [data[i][21],data[i][3]/data[i][5]];
+			}
+
+		} if(nbvoiture=="3"){
+
+			for(i=0; i<data.length; i++){
+				tabTxEquipement[i]= [data[i][21],data[i][4]/data[i][5]];
+			}
+
+
+	}
+		return(tabTxEquipement);
+
+	} if(logement=="appartement"){
+
+		if(nbvoiture=="0"){
+
+			for(i=0; i<data.length; i++){
+				tabTxEquipement[i]= [data[i][21],data[i][11]/data[i][15]];
+			}
+
+		} if(nbvoiture=="1"){
+
+			for(i=0; i<data.length; i++){
+				tabTxEquipement[i]= [data[i][21],data[i][12]/data[i][15]];
+			}
+
+		} if(nbvoiture=="2"){
+
+			for(i=0; i<data.length; i++){
+				tabTxEquipement[i]= [data[i][21],data[i][13]/data[i][15]];
+			}
+
+		} if(nbvoiture=="3"){
+
+			for(i=0; i<data.length; i++){
+				tabTxEquipement[i]= [data[i][21],data[i][13]/data[i][15]];
+			}
+
+		}
+
+		return(tabTxEquipement);
+
+
+
+	} if(logement=="autre"){
+
+		if(nbvoiture=="0"){
+
+			for(i=0; i<data.length; i++){
+				tabTxEquipement[i]= [data[i][21],data[i][16]/data[i][20]];
+			}
+
+		} if(nbvoiture=="1"){
+
+			for(i=0; i<data.length; i++){
+				tabTxEquipement[i]= [data[i][21],data[i][17]/data[i][20]];
+			}
+
+		} if(nbvoiture=="2"){
+
+			for(i=0; i<data.length; i++){
+				tabTxEquipement[i]= [data[i][21],data[i][18]/data[i][20]];
+			}
+
+		} if(nbvoiture=="3"){
+
+			for(i=0; i<data.length; i++){
+				tabTxEquipement[i]= [data[i][21],data[i][19]/data[i][20]];
+			}
+
+		}
+
+		return(tabTxEquipement);
+
+	}
+
 }
 
 //Affichage des légendes (noms des communes et valeur des indicateurs)
@@ -842,7 +1088,7 @@ function refreshGraph() {
     window.open(base64image , "_blank");
   });
   html2canvas(document.body).then(function(canvas) {
-           
+
     document.body.appendChild(canvas);
   });
   anychart.exports.server("http://localhost:2000");
@@ -869,8 +1115,8 @@ function show_arg2(div) {
 
 document.getElementById('0voiture').addEventListener('click', console.log('0'));
 document.getElementById('1voiture').addEventListener('click', console.log('1'));
-document.getElementById('2voitures').addEventListener('click', show_arg2(2));
-document.getElementById('3voitures').addEventListener('click', show_arg2(3));
+document.getElementById('2voitures').addEventListener('click',function() {show_arg2(2)});
+document.getElementById('3voitures').addEventListener('click', function() {show_arg2(3)});
 
 var nomsCommunesIris = [];
 
