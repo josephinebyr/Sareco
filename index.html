@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Fenetre Sarecoscope</title>
+
+    <!-- Import js ajax -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Code leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+
+    <!-- Code Anychart pour les graphiques -->
+    <script src="https://cdn.anychart.com/releases/8.8.0/js/anychart-base.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.8.0/js/anychart-data-adapter.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.9.0/js/anychart-exports.min.js"></script>
+
+    <!-- Code pour l'xportation au format .png -->
+    <link rel="stylesheet" href="css/import_css/Leaflet.BigImage.min.css">
+    <script src="js/import_js/Leaflet.BigImage.min.js"></script>
+
+    <!-- Fichiers de style .css -->
+    <link rel="stylesheet" href="css/script_css/site_sareco_chgt.css"/>
+
+    <!-- Script exportation .png -->
+    <script src="js/import_js/bundle.js"></script>
+</head>
+
+<body>
+    <div id="Fenetre_Sarecoscope">
+        <header>
+            <img id="logo" src="assets/sarecoscope.png" >
+            <!--<h1>Sarecoscope</h1>-->
+        </header>
+
+        <section>
+
+        <article>
+            <h4>1. Choix des paramètres</h4>
+            <div id="parametres">
+                <div id="niveau">
+                    Niveau :
+                    <form id="btnChangeGeom">
+                        <select name="echelle" id="echelle">
+                            <option>Communes</option>
+                            <option>IRIS</option>
+                        </select>
+
+                    </form>
+                </div>
+
+
+                <div>
+                    <label onclick="displayNames()">
+                        <input type="checkbox" id="afficher_noms" name="afficher_noms" checked>
+                        Afficher les noms des communes
+                    </label>
+                </div>
+
+                <form method="GET" name="form" id="getAnnees" onsubmit = "return ValidationForm()">
+                    <div id="choix_annee">
+                        Choix de l'année :
+                        <form name="annees" action="">
+                            <select name="Liste_Annee" id="Liste_Annee">
+                                <option>2006</option>
+                                <option>2007</option>
+                                <option>2008</option>
+                                <option>2009</option>
+                                <option>2010</option>
+                                <option>2011</option>
+                                <option>2012</option>
+                                <option>2013</option>
+                                <option>2014</option>
+                                <option>2015</option>
+                                <option>2016</option>
+                                <option>2017</option>
+                            </select>
+                        </form>
+                    </div>
+                </form>
+            </div>
+
+
+            <div id="Choix_des_indicateurs">
+                <h4>2. Choix des indicateurs</h4>
+            </div>
+
+            <div id="Taux_de_motorisation_des_menages" >
+                <p id="titre" onclick="hide('Liste_Logement')">Taux de motorisation des ménages</p>
+                <div id="Liste_Logement" class="arguments" style="display:none">
+                                    <div id="tslogement_ind1">Tout type de logement</div>
+                                    <div id="maison_ind1">Maisons</div>
+                                    <div id="appartement_ind1">Appartements</div>
+                                    <div id="autre_ind1">Autres</div>
+                                    <div id="evol_ind1" onclick="hide('evolution_form')">Évolution</div>
+                        <div id="evolution_form" style="display: none;">
+                            Choix des années :
+                            <form name="evolutionTxMot" action="">
+                                <select name="select_evolution" id="select_evolution" multiple>
+                                    <option>2006</option>
+                                    <option>2007</option>
+                                    <option>2008</option>
+                                    <option>2009</option>
+                                    <option>2010</option>
+                                    <option>2011</option>
+                                    <option>2012</option>
+                                    <option>2013</option>
+                                    <option>2014</option>
+                                    <option>2015</option>
+                                    <option>2016</option>
+                                    <option>2017</option>
+                                </select>
+                            </form>
+                            Choix de la commune :
+                            <form id="form_recherche_evolTxMot" action="#" method="post">
+                                <input type="text" class="search" name="search" id="champ_recherche_evolTxMot"  autocomplete="off"/>
+                            </form>
+                            <button id="valider_evolution">Valider</button>
+                        </div>
+
+                                </div>
+            </div>
+
+            <br/><div id="Taux_dequipement_en_voiture">
+                <p id="titre" onclick="hide('Liste_equipement')">Taux d'équipement en voiture des ménages</p>
+                <div id="Liste_equipement" class="arguments" style="display:none">
+                    <div id="Composant_equipement" >
+                        <div id="0voiture">Aucune voiture</div>
+                        <div id="1voiture">1 voiture</div>
+                        <div id="2voitures">2 voitures</div>
+                        <div id="3voitures">3 voitures</div>
+                        <div id="total">Taux équipement total</div>
+                    </div>
+                    <div id="Composant_logement" style="display: none;">
+                        <div id="tslogement">Tout type de logement</div>
+                        <div id="maison">Maisons</div>
+                        <div id="appartement">Appartements</div>
+                        <div id="autre">Autres</div>
+                    </div>
+                </div>
+            </div>
+
+                <br/><div id="Distribution_du_nombre_de_voit">
+                <p id="titre" onclick="hide('distVoitures')">Distribution du nombre de voitures à disposition des ménages</p>
+                <div id="distVoitures" style="display:none">
+                    <form id="form_recherche_distVoitures" action="#" method="post">
+                        <input type="text" class="search" name="search" id="champ_recherche_distVoitures"  autocomplete="off"/>
+                    </form>
+                    <button id="btnRechercheDistVoitures" type='button' >Afficher le tableau</button>
+                </div>
+
+            </div>
+
+
+            <br/><div id="Taux_dequipements_en_garage_prive">
+                            <p id="titre" onclick="hide('Liste_Logement2')">Taux d'équipements en garage privé des ménages</p>
+                            <div id="Liste_Logement2" class="arguments" style="display:none">
+                                <div id="tslogement_ind4">Tout type de logement</div>
+                                <div id="maison_ind4">Maisons</div>
+                                <div id="appartement_ind4">Appartements</div>
+                                <div id="autre_ind4">Autres</div>
+                        </div>
+
+        </article>
+
+        <article>
+
+            <div id="carte_interactive_france"></div>
+            <button class="manualButton" onclick="manualPrint()">Télécharger la vue de la carte</button>
+            <button type="button" id="btnRafraichir" onclick="refreshDiv('tab')">
+                    <!--<div id="arrow">&#8594;<div id="rafraichir">→ RAFRAICHIR LA VUE DES GRAPHIQUES</div></div>-->
+                    <div id="rafraichir">→ EFFACER LE TABLEAU</div>
+            </button>
+            <div id="tab" style="display: none"></div>
+
+
+
+        </article>
+
+        <article>
+
+            <form id="form_recherche" action="#" method="post">
+                <img src="assets/pictos_sareco-15_redim3.png" style="margin: 10px;">
+                <input type="text" class="search" name="search" id="champ_recherche"  autocomplete="off"/>
+            </form>
+            <button id="barre_recherche_B" type='button' >RECHERCHER</button>
+
+            <button type="button" id="btnRafraichir" onclick="refreshDiv('container')">
+                <div id="rafraichir">→ RAFRAICHIR LA VUE DES GRAPHIQUES</div>
+            </button>
+            <div id="sauvegardeGraphiques">
+                Sauvegarder les graphiques
+                <button type="button" id="btnSavePNG"> .png</button>
+                <button type="button" id="btnSaveXlsx"> .xlsx</button>
+            </div>
+
+            <div id="container"></div>
+
+        </article>
+
+        </section>
+    </div>
+
+
+    <script src="js/script_js/france.js"></script>
+    <script src="js/script_js/iris.js"></script>
+    <script src="js/script_js/code.js"></script>
+</body>
+</html>
