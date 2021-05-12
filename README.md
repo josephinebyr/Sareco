@@ -1,5 +1,5 @@
 # Sareco
-Ce projet avait pour butde créer un outil cartographique et interactif de visualisation de données des équipements en voiture des ménages en France.
+Ce projet avait pour but de créer un outil cartographique et interactif de visualisation de données des équipements en voiture des ménages en France.
 
 Il consiste en l’élaborationd’un site WEB qui sera utilisé en interne dans l’entreprise SARECO. Il y sera possible de visualiser différents indicateurs avec une carte interactive s’affichant lorsque l’on clique sur un indicateur, et les graphiques associés à l’indicateur lorsque l’on clique sur une ville située sur la carte.
 Pour installer le site WEB, il faut le logiciel PostgreSQL et pgAdmin, le logiciel MAMP ou un logiciel similaire (XAMPP, LAMP) qui sont des logiciels permettant l’utilisation d’un service web local, et un langage de programmation tel que Python.
