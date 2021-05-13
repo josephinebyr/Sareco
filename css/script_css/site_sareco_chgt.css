@@ -1,0 +1,346 @@
+body{
+    position : absolute;
+    width : 100%;
+    background-color:#F2F2F2 ;
+    overflow: auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 700;
+    color: #826161;
+}
+
+/**********
+TITRE DU SITE
+**********/
+header {
+    background: url(Images/Logo-Sareco_redim2.png) right  no-repeat ;
+}
+
+#logo {
+    height: 70px;
+    padding-left: 10px;
+}
+
+h1 {
+    line-height: 115.2%;
+    text-align: center;
+    font-size: 50px;
+    font-style: normal;
+    color: #342626;
+}
+
+button {
+    color: #E11616;
+    border: solid 1px;
+    border-color: #E11616;
+    background: white;
+    cursor: pointer;
+    box-shadow: transparent;
+}
+
+
+/**********
+AGENCEMENT DU SITE
+**********/
+section{
+    display : flex;
+}
+
+article{
+    flex: 1 100px;
+    padding: 5px;
+    margin: 5px;
+    background: #FFFFFF;
+}
+
+article:nth-of-type(1){
+    display : flex;
+    flex-flow: column;
+    background: #FFFFFF;
+}
+
+article:nth-of-type(2){
+    flex: 3 200px;
+    display: flex;
+    flex-flow: column;
+}
+
+/*******************************
+MENU CHOIX DES INDICATEURS
+*******************************/
+h4{
+    font-size: 20px;
+    line-height: 109.2%;
+    text-align: center;
+    color: #FFFFFF;
+    background: #342626;  
+    padding: 10px;
+    margin-top: 0px; margin-bottom: 0px;
+    margin-left: 0px; margin-right: 0px;
+}
+
+#parametres {
+    padding: 10px;
+}
+.arguments div, .sous_arg {
+    font-weight: 400;
+    border-top: solid 2px #F2F2F2;
+    padding: 5px;
+}
+.arguments div:hover,  .sous_arg:hover{
+    cursor: pointer;
+    background-color: #F2F2F2;
+}
+
+/**********************************
+CARTE INTERACTIVE AU CENTRE DU SITE
+***********************************/
+#carte_interactive_france{
+    height: 500px;
+    -webkit-text-stroke: 0.3px white;
+    color: #342626;
+}
+
+/*****
+STYLE
+******/
+#niveau{
+    display: flex;
+}
+#echelle{
+    margin: 3%;
+}
+#annees{
+    margin: 3%;
+}
+
+#titre{
+    color: #342626;
+    background: #F2F2F2;
+    cursor: pointer;
+    margin: 0px;
+    padding: 3px;
+    font-size: 17px;
+}
+
+label{
+    font-size: 18px;
+    line-height: 128%;
+    color: #826161;
+}
+
+/*.arrow-down {
+    width: 0;
+    height: 0;
+    
+    border-right: 16px solid transparent;
+    border-left: 16px solid transparent;
+    
+    border-top: 20px solid #f7df6c;
+}*/
+
+/*#btnChangeGeom{
+    border:transparent;
+    color: #E11616;
+    cursor: pointer;
+    background: transparent;
+}*/
+
+/*****
+Bouton valider
+*****/
+/*#btnValidationForm{
+    background: white;
+    border: none;
+    display: flex;
+    flex-flow: row;
+    cursor: pointer;
+}
+
+#arrow{
+    font-size: 40px;
+    color: #E11616;
+    display:flex;
+    flex-flow: row;
+}
+#valider{
+    font-size: 18px;
+    line-height: 135%;
+    color: #E11616;
+    background: white;
+    margin-top: 20%;
+}*/
+
+/********************************************************************
+BARRE DE RECHERCHE INDICATEUR 3 - Distribution du nombre de voitures
+********************************************************************/
+#form_recherche_distVoitures {
+    font-size: 14px;
+    line-height: 135%;
+}
+#form_recherche_distVoitures .search {
+    height:33px;
+    margin:4px;
+    padding:0 13px;
+    border:1px solid #F2F2F2;	
+	border-radius:2px;
+}
+#form_recherche_distVoitures .search:focus {
+	color:#342626;
+    border-color:#c8c8c8;
+}
+#form_recherche_distVoitures .suggestions {
+    position:relative;
+    margin:-6px auto 0;
+    padding:0;
+    list-style-type:none;
+    border:1px solid #F2F2F2;
+    background:#FFFFFF;
+    font-size:13px;
+    color:#826161;
+	border-radius:2px;
+	box-shadow:0 1px 3px rgba(0,0,0,0.1)
+}
+
+#form_recherche_distVoitures .suggestions li {height:20px;padding:0 10px;line-height:20px;cursor:pointer;border-top:1px solid #f5f5f5}
+#form_recherche_distVoitures .suggestions li:hover {background-position:320px center;border-top-color:#F2F2F2; background-color: #F2F2F2;}
+#form_recherche_distVoitures .suggestions li:first-child {border:none;}
+
+
+#distVoitures{
+    width: 200px;
+    display: flex;
+    justify-content: space-around;
+    align-content: space-around;
+}
+#btnRechercheDistVoitures{
+    color: #E11616;
+    height: 30px;
+    margin-bottom: 30px;
+    border: solid 1px;
+    border-color: #E11616;
+    background: white;
+    cursor: pointer;
+    box-shadow: transparent;
+}
+
+/******************************
+TABLEAU ÉQUIPEMENT EN VOITURES
+*******************************/
+table{
+    border: 1px solid #342626;
+    margin: auto;
+    padding: 10px;
+}
+/*td {
+    border: 1px solid #F2F2F2;
+}*/
+
+thead{
+    background-color: #F2F2F2;
+}
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{border-color:black;border-style:solid;border-width:1px;font-size:14px;
+  overflow:hidden;padding:10px 16px;word-break:normal;}
+.tg th{border-color:black;border-style:solid;border-width:1px;font-size:14px;
+  font-weight:normal;overflow:hidden;padding:10px 16px;word-break:normal;}
+
+
+/******************
+BARRE DE RECHERCHE
+*******************/
+#form_recherche {
+    width:358px;
+    font-size: 18px;
+    line-height: 135%;
+}
+#form_recherche .search {
+	width:270px;
+    height:33px;
+    margin:4px;
+    padding:0 13px;
+    border:1px solid #F2F2F2;	
+	border-radius:2px;
+}
+
+#form_recherche .search:focus {
+	color:#342626;
+    border-color:#c8c8c8;
+}
+
+#form_recherche .suggestions {
+	width:342px;
+    position:relative;
+    margin:-6px auto 0;
+    padding:0;
+    list-style-type:none;
+    border:1px solid #F2F2F2;
+    background:#FFFFFF;
+    font-size:13px;
+    color:#826161;
+	border-radius:2px;
+	box-shadow:0 1px 3px rgba(0,0,0,0.1)
+}
+
+#form_recherche .suggestions li {height:25px;padding:0 10px;line-height:25px;cursor:pointer;border-top:1px solid #f5f5f5}
+#form_recherche .suggestions li:hover {background-position:320px center;border-top-color:#F2F2F2; background-color: #F2F2F2;}
+#form_recherche .suggestions li:first-child {border:none;}
+
+
+
+#barre_recherche_B{
+    color: #E11616;
+    height: 50px;
+    width: 358px;
+    margin-bottom: 30px;
+    border: solid 1px;
+    border-color: #E11616;
+    background: white;
+    cursor: pointer;
+    box-shadow: transparent;
+}
+
+
+#btnRafraichir, #cartepng{
+    background: white;
+    border: none;
+    display: flex;
+    flex-flow: row;
+    cursor: pointer;
+}
+
+/*#arrow{
+    font-size: 40px;
+    color: red;
+    display:flex;
+    flex-flow: row;
+}*/
+
+/**********
+GRAPHIQUES
+**********/
+#container {
+    width: 100%;
+    height: 250px;
+    margin: 0;
+    padding: 0;
+}
+
+#rafraichir{
+    font-size: 15px;
+    color: #E11616;
+    background: white;
+}
+#sauvegardeGraphiques {
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    height: 30px;
+    margin: 20px;
+    color: #826161;
+    line-height: 115%;
+}
+#sauvegardeGraphiques button{
+    color: #826161;
+    border-color: #826161;
+    margin: 5px;
+}
